@@ -134,3 +134,4 @@ def generate_ubiquitous_language_markdown(project: ProjectData, lang: str = "pt"
         md.append("")
 
     return "\n".join(md)
+

@@ -368,3 +368,4 @@ class RepositoryScanner:
                         pass
 
         return found_manifests, sorted(list(external_deps))
+

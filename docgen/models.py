@@ -155,3 +155,4 @@ class ProjectData:
     detected_arch_patterns: List[str] = field(default_factory=list)
     ubiquitous_terms: List[UbiquitousTerm] = field(default_factory=list)
     adrs: List[ADRItem] = field(default_factory=list)
+

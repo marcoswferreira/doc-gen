@@ -21,3 +21,4 @@ class BaseParser(ABC):
         preenchendo símbolos, imports, exports e docstring do módulo.
         """
         pass
+

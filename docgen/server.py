@@ -307,3 +307,4 @@ def start_doc_server(docs_path: str = "docs", port: int = 8080):
     except KeyboardInterrupt:
         print("\nServidor finalizado.")
         httpd.server_close()
+

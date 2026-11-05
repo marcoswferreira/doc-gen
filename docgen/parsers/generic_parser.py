@@ -57,3 +57,4 @@ class GenericParser(BaseParser):
                     )
 
         return file_info
+

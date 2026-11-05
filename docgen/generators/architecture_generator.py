@@ -231,3 +231,4 @@ def generate_das(project: ProjectData, lang: str = "pt") -> str:
     md.append("| Falta de tipagem estática no código analisado | Documentação com tipos vazios | Detecção heurística de valores default e docstrings para enriquecer assinaturas. |")
 
     return "\n".join(md)
+

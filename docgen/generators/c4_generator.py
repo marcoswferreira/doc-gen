@@ -168,3 +168,4 @@ def generate_c4_documentation(project: ProjectData, lang: str = "pt") -> str:
         md.append("> Repositório predominantemente procedural ou modular sem classes de domínio complexas mapeadas.")
 
     return "\n".join(md)
+

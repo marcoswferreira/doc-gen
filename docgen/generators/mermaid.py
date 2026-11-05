@@ -105,3 +105,4 @@ def generate_dependency_graph(internal_deps: Dict[str, List[str]]) -> str:
 
     lines.append("```")
     return "\n".join(lines)
+

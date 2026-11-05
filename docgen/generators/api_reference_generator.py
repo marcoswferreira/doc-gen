@@ -100,3 +100,4 @@ def generate_api_reference_markdown(project: ProjectData, lang: str = "pt") -> s
         md.append("")
 
     return "\n".join(md)
+

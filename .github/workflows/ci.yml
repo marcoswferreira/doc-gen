@@ -1,0 +1,57 @@
+name: CI - Build, Test & DocGen
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run Unit Tests
+        run: |
+          python -m unittest discover -s tests -p "test_*.py" -v
+
+      - name: Install DocGen CLI
+        run: |
+          pip install .
+
+      - name: Verify CLI Execution
+        run: |
+          docgen --version
+          docgen stats .
+
+      - name: Generate Multi-page Documentation (docs/)
+        run: |
+          docgen generate . --output ./docs_ci
+
+      - name: Generate Single-file Master Documentation
+        run: |
+          docgen generate . --single-file --output ./DOCUMENTATION.md
+
+      - name: Upload Documentation Artifacts
+        if: matrix.python-version == '3.12'
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-docs
+          path: |
+            docs_ci/
+            DOCUMENTATION.md
+

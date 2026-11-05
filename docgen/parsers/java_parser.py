@@ -148,3 +148,4 @@ class JavaParser(BaseParser):
             else:
                 params.append(ParameterInfo(name=p))
         return params
+

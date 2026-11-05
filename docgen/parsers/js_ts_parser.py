@@ -303,3 +303,4 @@ class JsTsParser(BaseParser):
             )
 
         return params
+

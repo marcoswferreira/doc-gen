@@ -205,3 +205,4 @@ class PythonParser(BaseParser):
             route_method=route_method,
             route_path=route_path,
         )
+

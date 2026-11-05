@@ -39,3 +39,4 @@ class ParserRegistry:
         for f in files:
             parsed.append(self.parse_file(f))
         return parsed
+

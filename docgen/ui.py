@@ -111,3 +111,4 @@ def print_table(headers: List[str], rows: List[List[Any]], title: str = ""):
     # Bottom border
     bot = "  └" + "┴".join("─" * (w + 2) for w in col_widths) + "┘"
     print(f"{Colors.DIM}{bot}{Colors.RESET}\n")
+
