@@ -9,7 +9,7 @@
 
 | Módulo / Arquivo | Linguagem | Símbolos | SLOC |
 |---|---|---|---|
-| [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1664 |
+| [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1673 |
 | [pyproject.toml](#pyproject-toml) | TOML | 0 | 22 |
 | [setup.py](#setup-py) | Python | 0 | 11 |
 | [index.html](#index-html) | HTML | 0 | 12 |
@@ -30,13 +30,10 @@
 | [docgen/config.py](#docgen-config-py) | Python | 1 | 0 |
 | [docgen/server.py](#docgen-server-py) | Python | 3 | 0 |
 | [docgen/ui.py](#docgen-ui-py) | Python | 8 | 0 |
-| [docgen/generators/c4_generator.py](#docgen-generators-c4_generator-py) | Python | 1 | 0 |
-| [docgen/generators/ubiquitous_language_generator.py](#docgen-generators-ubiquitous_language_generator-py) | Python | 2 | 0 |
 | [docgen/generators/api_reference_generator.py](#docgen-generators-api_reference_generator-py) | Python | 1 | 0 |
 | [docgen/generators/doc_suite.py](#docgen-generators-doc_suite-py) | Python | 2 | 0 |
 | [docgen/generators/static_site_generator.py](#docgen-generators-static_site_generator-py) | Python | 1 | 0 |
 | [docgen/generators/mermaid.py](#docgen-generators-mermaid-py) | Python | 7 | 0 |
-| [docgen/generators/architecture_generator.py](#docgen-generators-architecture_generator-py) | Python | 2 | 0 |
 | [docgen/parsers/base.py](#docgen-parsers-base-py) | Python | 1 | 0 |
 | [docgen/parsers/js_ts_parser.py](#docgen-parsers-js_ts_parser-py) | Python | 1 | 48 |
 | [docgen/parsers/go_parser.py](#docgen-parsers-go_parser-py) | Python | 1 | 0 |
@@ -54,7 +51,7 @@
 
 <a id='documentation-md'></a>
 ## Arquivo: `DOCUMENTATION.md`
-**Linguagem:** Markdown | **Linhas de Código:** 1664 | **Comentários:** 256
+**Linguagem:** Markdown | **Linhas de Código:** 1673 | **Comentários:** 257
 
 ### Descrição do Módulo
 > Documentação Técnica: doc-gen
@@ -222,15 +219,14 @@ class TestAIEngine(unittest.TestCase)
 
 <a id='tests-test_generators-py'></a>
 ## Arquivo: `tests/test_generators.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 146
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 149
 
 ### Descrição do Módulo
-> Testes unitários para todos os geradores de documentação técnica e arquitetural:
-- C4 Model
-- HLD / LLD / DAS
-- ADRs
-- Linguagem Ubíqua (DDD)
+> Testes unitários para os geradores e orquestrador de documentação:
 - DocSuiteGenerator (Multi e Single-file)
+- Referência de API (AST)
+- Diagramas Mermaid (Arquitetura, Dependências e Classes)
+- Síntese com MockProvider de IA
 
 ### `class` TestGenerators
 ```python
@@ -240,10 +236,9 @@ class TestGenerators(unittest.TestCase)
 #### Métodos da Classe
 - **`setUp`**`()`
 - **`tearDown`**`()`
-- **`test_c4_model_generation`**`()`
-- **`test_hld_das_generation`**`()`
-- **`test_ubiquitous_language_generation`**`()`
-- **`test_doc_suite_generator_multi_file`**`()`
+- **`test_api_reference_and_mermaid_generators`**`()`
+- **`test_doc_suite_generator_with_ai`**`()`
+- **`test_doc_suite_generator_without_ai`**`()`
 - **`test_doc_suite_generator_single_file`**`()`
 
 ---
@@ -338,7 +333,7 @@ Escaneia o repositório e constrói a lista inicial de arquivos e métricas.
 
 <a id='docgen-cli-py'></a>
 ## Arquivo: `docgen/cli.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 218
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 215
 
 ### Descrição do Módulo
 > Ponto de entrada da CLI do DocGen.
@@ -630,64 +625,6 @@ Renderiza uma tabela formatada com bordas Unicode no terminal.
 
 ---
 
-<a id='docgen-generators-c4_generator-py'></a>
-## Arquivo: `docgen/generators/c4_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 140
-
-### Descrição do Módulo
-> Gerador de documentação no Modelo C4 (Contexto, Containers, Componentes e Código).
-Gera diagramas Mermaid e detalhamento textual baseado na arquitetura de Simon Brown.
-
-### `function` generate_c4_documentation
-```python
-generate_c4_documentation(project: ProjectData, lang: str = 'pt') -> str
-```
-
-Gera o documento completo C4_MODEL.md.
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `project` | `ProjectData` | - |
-| `lang` | `str` | `'pt'` |
-
----
-
-<a id='docgen-generators-ubiquitous_language_generator-py'></a>
-## Arquivo: `docgen/generators/ubiquitous_language_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 116
-
-### Descrição do Módulo
-> Gerador de Linguagem Ubíqua (Ubiquitous Language / Glossário de Domínio - DDD).
-Extrai conceitos centrais do negócio, entidades, value objects, enums e operações do código.
-
-### `function` extract_ubiquitous_terms
-```python
-extract_ubiquitous_terms(project: ProjectData) -> List[UbiquitousTerm]
-```
-
-Analisa as definições de classes, tipos e enums para compor a Linguagem Ubíqua.
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `project` | `ProjectData` | - |
-
-### `function` generate_ubiquitous_language_markdown
-```python
-generate_ubiquitous_language_markdown(project: ProjectData, lang: str = 'pt') -> str
-```
-
-Gera o documento UBIQUITOUS_LANGUAGE.md.
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `project` | `ProjectData` | - |
-| `lang` | `str` | `'pt'` |
-
----
-
 <a id='docgen-generators-api_reference_generator-py'></a>
 ## Arquivo: `docgen/generators/api_reference_generator.py`
 **Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 85
@@ -712,11 +649,12 @@ Gera o documento API_REFERENCE.md.
 
 <a id='docgen-generators-doc_suite-py'></a>
 ## Arquivo: `docgen/generators/doc_suite.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 283
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 317
 
 ### Descrição do Módulo
 > Orquestrador central de geração da suíte de documentação Markdown.
 Coordena a criação de todos os artefatos técnicos, suportando modo multi-arquivos ou consolidado (--single-file).
+Integra os geradores determinísticos baseados em AST com o motor de síntese de IA.
 
 ### `function` generate_directory_tree
 ```python
@@ -740,6 +678,16 @@ Orquestra a escrita dos documentos Markdown.
 
 #### Métodos da Classe
 - **`__init__`**`(project_data, output_dir, lang, ai_provider)`
+- **`_build_ai_pending_placeholder`**`(title, doc_type)` -> `str`
+  - *Gera um aviso claro quando a documentação cognitiva é requisitada sem motor de IA ativo.*
+- **`_build_c4`**`()` -> `str`
+  - *Sintetiza o Modelo C4 via IA ou exibe aviso pedagógico.*
+- **`_build_hld`**`()` -> `str`
+  - *Sintetiza o High-Level Design via IA ou exibe aviso pedagógico.*
+- **`_build_das`**`()` -> `str`
+  - *Sintetiza o Documento de Arquitetura de Software (DAS) via IA ou exibe aviso pedagógico.*
+- **`_build_ubiquitous_language`**`()` -> `str`
+  - *Sintetiza a Linguagem Ubíqua (DDD) via IA ou exibe aviso pedagógico.*
 - **`generate_all`**`(single_file, single_file_name)` -> `List[str]`
   - *Gera todos os arquivos e retorna a lista de caminhos gravados.*
 - **`_build_index`**`()` -> `str`
@@ -858,44 +806,6 @@ Gera o grafo de dependências internas entre módulos do projeto.
 | Nome | Tipo | Default |
 |---|---|---|
 | `internal_deps` | `Dict[str, List[str]]` | - |
-
----
-
-<a id='docgen-generators-architecture_generator-py'></a>
-## Arquivo: `docgen/generators/architecture_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 144
-
-### Descrição do Módulo
-> Gerador de documentação arquitetural avançada:
-- HLD (High-Level Design)
-- LLD (Low-Level Design)
-- DAS (Documento de Arquitetura de Software / Modelo 4+1 & Arc42)
-
-### `function` generate_hld
-```python
-generate_hld(project: ProjectData, lang: str = 'pt') -> str
-```
-
-Gera o documento High-Level Design (HLD.md).
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `project` | `ProjectData` | - |
-| `lang` | `str` | `'pt'` |
-
-### `function` generate_das
-```python
-generate_das(project: ProjectData, lang: str = 'pt') -> str
-```
-
-Gera o Documento de Arquitetura de Software (DAS.md) no padrão Arc42 / 4+1 Views.
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `project` | `ProjectData` | - |
-| `lang` | `str` | `'pt'` |
 
 ---
 
@@ -1109,7 +1019,7 @@ Gerencia a lista de parsers disponíveis e aplica o mais adequado a cada arquivo
 
 <a id='docgen-ai-context_builder-py'></a>
 ## Arquivo: `docgen/ai/context_builder.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 84
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 88
 
 ### Descrição do Módulo
 > Construtor de contexto semântico do repositório para o modelo de IA.

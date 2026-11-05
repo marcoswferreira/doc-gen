@@ -1,270 +1,29 @@
-# Linguagem Ubíqua (Glossário DDD): doc-gen
+# Linguagem Ubíqua e Glossário DDD: doc-gen
 
 > [!NOTE]
-> No **Domain-Driven Design (DDD)**, a **Linguagem Ubíqua** (Ubiquitous Language) é o vocabulário compartilhado e rigoroso utilizado tanto por especialistas de negócio quanto pela equipe técnica para eliminar ambiguidades no software.
+> 🧠 **Síntese de IA Pendente**: No DocGen, documentos de arquitetura cognitiva e semântica de domínio (Linguagem Ubíqua) são gerados exclusivamente pelo motor de Inteligência Artificial para garantir rigor conceitual e evitar templates genéricos.
 
----
+## Como gerar este documento com IA
 
-## 1. Mapa Conceitual do Domínio
-Relação visual dos termos mais representativos identificados na base de código:
+Execute o DocGen habilitando um provedor de IA suportado:
 
-```mermaid
-graph TD
-    C4_PROMPT["<b>C4_PROMPT</b><br/><i>(Entidade)</i>"]
-    DAS_PROMPT["<b>DAS_PROMPT</b><br/><i>(Entidade)</i>"]
-    HLD_PROMPT["<b>HLD_PROMPT</b><br/><i>(Entidade)</i>"]
-    HTML_TEMPLATE["<b>HTML_TEMPLATE</b><br/><i>(Entidade)</i>"]
-    IGNORED_BASE_CLASSES["<b>IGNORED_BASE_CLASSES</b><br/><i>(Entidade)</i>"]
-    SYSTEM_ARCHITECT_PROMPT["<b>SYSTEM_ARCHITECT_PROMPT</b><br/><i>(Entidade)</i>"]
-    UBIQUITOUS_LANGUAGE_PROMPT["<b>UBIQUITOUS_LANGUAGE_PROMPT</b><br/><i>(Entidade)</i>"]
-    build_static_html_viewer["<b>build_static_html_viewer</b><br/><i>(Entidade)</i>"]
-    count_file_lines["<b>count_file_lines</b><br/><i>(Entidade)</i>"]
-    detect_language["<b>detect_language</b><br/><i>(Entidade)</i>"]
-    extract_ubiquitous_terms["<b>extract_ubiquitous_terms</b><br/><i>(Entidade)</i>"]
-    generate_api_reference_markdown["<b>generate_api_reference_markdown</b><br/><i>(Entidade)</i>"]
-    C4_PROMPT -.->|Relacionado| DAS_PROMPT
-    C4_PROMPT -.->|Relacionado| HLD_PROMPT
-    C4_PROMPT -.->|Relacionado| SYSTEM_ARCHITECT_PROMPT
-    C4_PROMPT -.->|Relacionado| UBIQUITOUS_LANGUAGE_PROMPT
-    DAS_PROMPT -.->|Relacionado| HLD_PROMPT
-    DAS_PROMPT -.->|Relacionado| SYSTEM_ARCHITECT_PROMPT
-    DAS_PROMPT -.->|Relacionado| UBIQUITOUS_LANGUAGE_PROMPT
-    HLD_PROMPT -.->|Relacionado| SYSTEM_ARCHITECT_PROMPT
-    HLD_PROMPT -.->|Relacionado| UBIQUITOUS_LANGUAGE_PROMPT
-    SYSTEM_ARCHITECT_PROMPT -.->|Relacionado| UBIQUITOUS_LANGUAGE_PROMPT
-    count_file_lines -.->|Relacionado| detect_language
+### 1. Google Gemini (Recomendado na Nuvem)
+```bash
+export GEMINI_API_KEY="sua_chave_aqui"
+docgen generate . --ai --provider gemini
 ```
 
-## 2. Glossário de Termos do Negócio
+### 2. Ollama Local (100% Offline e Privado)
+```bash
+ollama run deepseek-r1
+docgen generate . --ai --provider ollama --model deepseek-r1
+```
 
-| Termo / Conceito | Categoria DDD | Definição / Papel no Sistema | Ocorrências |
-|---|---|---|---|
-| **C4_PROMPT** | `Entidade` | Elemento estrutural do domínio do sistema. | `prompts.py` |
-| **DAS_PROMPT** | `Entidade` | Elemento estrutural do domínio do sistema. | `prompts.py` |
-| **HLD_PROMPT** | `Entidade` | Elemento estrutural do domínio do sistema. | `prompts.py` |
-| **HTML_TEMPLATE** | `Entidade` | Elemento estrutural do domínio do sistema. | `server.py` |
-| **IGNORED_BASE_CLASSES** | `Entidade` | Elemento estrutural do domínio do sistema. | `mermaid.py` |
-| **SYSTEM_ARCHITECT_PROMPT** | `Entidade` | Elemento estrutural do domínio do sistema. | `prompts.py` |
-| **UBIQUITOUS_LANGUAGE_PROMPT** | `Entidade` | Elemento estrutural do domínio do sistema. | `prompts.py` |
-| **build_static_html_viewer** | `Entidade` | Gera um index.html autossuficiente contendo todos os Markdowns embutidos. | `static_site_generator.py` |
-| **count_file_lines** | `Entidade` | Analisa as linhas de um arquivo e retorna:. | `scanner.py` |
-| **detect_language** | `Entidade` | Identifica a linguagem pelo nome ou extensão do arquivo. | `scanner.py` |
-| **extract_ubiquitous_terms** | `Entidade` | Analisa as definições de classes, tipos e enums para compor a Linguagem Ubíqua. | `ubiquitous_language_generator.py` |
-| **generate_api_reference_markdown** | `Entidade` | Gera o documento API_REFERENCE.md. | `api_reference_generator.py` |
-| **generate_architecture_diagram** | `Entidade` | Gera um diagrama de arquitetura em alto nível agrupando módulos em subgraphs. | `mermaid.py` |
-| **generate_c4_documentation** | `Entidade` | Gera o documento completo C4_MODEL.md. | `c4_generator.py` |
-| **generate_class_diagram** | `Entidade` | Gera um diagrama de classes Mermaid válido para entidades e classes de domínio. | `mermaid.py` |
-| **generate_das** | `Entidade` | Gera o Documento de Arquitetura de Software (DAS.md) no padrão Arc42 / 4+1 Views. | `architecture_generator.py` |
-| **generate_dependency_graph** | `Entidade` | Gera o grafo de dependências internas entre módulos do projeto. | `mermaid.py` |
-| **generate_directory_tree** | `Entidade` | Gera uma árvore visual de diretórios em texto/ASCII. | `doc_suite.py` |
-| **generate_hld** | `Entidade` | Gera o documento High-Level Design (HLD.md). | `architecture_generator.py` |
-| **generate_ubiquitous_language_markdown** | `Entidade` | Gera o documento UBIQUITOUS_LANGUAGE.md. | `ubiquitous_language_generator.py` |
-| **get_ai_provider** | `Entidade` | Fábrica inteligente de provedores de IA. | `provider.py` |
-| **get_primary_programming_language** | `Entidade` | Retorna a linguagem de programação principal, desconsiderando arquivos de doc/config. | `config.py` |
-| **is_test_file** | `Entidade` | Verifica se o arquivo é um arquivo de teste. | `mermaid.py` |
-| **print_banner** | `Entidade` | Exibe o cabeçalho estilizado do DocGen. | `ui.py` |
-| **print_error** | `Entidade` | Imprime erro. | `ui.py` |
-| **print_info** | `Entidade` | Imprime mensagem informativa. | `ui.py` |
-| **print_step** | `Entidade` | Imprime uma etapa do processo. | `ui.py` |
-| **print_success** | `Entidade` | Imprime confirmação de sucesso. | `ui.py` |
-| **print_table** | `Entidade` | Renderiza uma tabela formatada com bordas Unicode no terminal. | `ui.py` |
-| **print_warning** | `Entidade` | Imprime aviso. | `ui.py` |
-| **resolve_internal_dependencies** | `Entidade` | Mapeia os imports internos entre arquivos do projeto. | `cli.py` |
-| **run_generate** | `Entidade` | Executa a análise do repositório e a geração completa da documentação. | `cli.py` |
-| **run_init** | `Entidade` | Inicializa arquivos de configuração padrão. | `cli.py` |
-| **run_stats** | `Entidade` | Apenas analisa e exibe métricas no terminal. | `cli.py` |
-| **sanitize_id** | `Entidade` | Sanitiza strings para identificadores válidos em nós Mermaid. | `mermaid.py` |
-| **sanitize_method_for_mermaid** | `Entidade` | Sanitiza o nome e retorno do método para sintaxe estrita do Mermaid classDiagram. | `mermaid.py` |
-| **start_doc_server** | `Entidade` | Inicia o servidor de visualização local. | `server.py` |
-| **AIArchitect** | `Entidade de Domínio` | Agente de arquitetura de software alimentado por IA Generativa. | `architect.py` |
-| **AnthropicProvider** | `Entidade de Domínio` | Integração com Anthropic Claude via REST nativo. | `provider.py` |
-| **BaseParser** | `Entidade de Domínio` | Contrato base para analisadores de código fonte. | `base.py` |
-| **CodebaseContextBuilder** | `Entidade de Domínio` | Monta o contexto técnico completo do repositório para ingestão por LLMs. | `context_builder.py` |
-| **Colors** | `Entidade de Domínio` | Entidade central com ciclo de vida e estado gerenciado em Colors. | `ui.py` |
-| **GeminiProvider** | `Entidade de Domínio` | Integração com Google Gemini API via REST nativo. | `provider.py` |
-| **GenericParser** | `Entidade de Domínio` | Parser de fallback para qualquer arquivo de código ou configuração. | `generic_parser.py` |
-| **GoParser** | `Entidade de Domínio` | Parser estrutural para código Go. | `go_parser.py` |
-| **IgnoreMatcher** | `Entidade de Domínio` | Implementa correspondência de padrões estilo .gitignore. | `scanner.py` |
-| **JavaParser** | `Entidade de Domínio` | Parser para linguagens orientadas a objetos baseadas em classes (Java, C#, Kotlin). | `java_parser.py` |
-| **JsTsParser** | `Entidade de Domínio` | Parser estrutural e regex para JavaScript e TypeScript. | `js_ts_parser.py` |
-| **LLMProvider** | `Entidade de Domínio` | Interface abstrata para provedores de inteligência artificial generativa. | `provider.py` |
-| **MockProvider** | `Entidade de Domínio` | Provedor mock utilizado para testes unitários ou modo determinístico. | `provider.py` |
-| **ModuleGroup** | `Entidade de Domínio` | Entidade central com ciclo de vida e estado gerenciado em ModuleGroup. | `models.py` |
-| **OllamaProvider** | `Entidade de Domínio` | Integração com LLM local via Ollama (DeepSeek-R1, Llama 3, Qwen, etc.). | `provider.py` |
-| **OpenAIProvider** | `Entidade de Domínio` | Integração com OpenAI (GPT-4o, GPT-4o-mini) via REST nativo. | `provider.py` |
-| **PythonParser** | `Entidade de Domínio` | Parser para arquivos Python usando AST. | `python_parser.py` |
-| **RustParser** | `Entidade de Domínio` | Parser estrutural para código Rust. | `rust_parser.py` |
-| **SymbolType** | `Entidade de Domínio` | Entidade central com ciclo de vida e estado gerenciado em SymbolType. | `models.py` |
-| **TestCLI** | `Entidade de Domínio` | Entidade central com ciclo de vida e estado gerenciado em TestCLI. | `test_cli.py` |
-| **TestJsTsParser** | `Entidade de Domínio` | Entidade central com ciclo de vida e estado gerenciado em TestJsTsParser. | `test_js_parser.py` |
-| **TestPythonParser** | `Entidade de Domínio` | Entidade central com ciclo de vida e estado gerenciado em TestPythonParser. | `test_python_parser.py` |
-| **UbiquitousTerm** | `Entidade de Domínio` | Entidade central com ciclo de vida e estado gerenciado em UbiquitousTerm. | `models.py` |
-| **FileInfo** | `Objeto de Valor (Value Object)` | Representação imutável com propriedades e métricas de FileInfo. | `models.py` |
-| **ImportInfo** | `Objeto de Valor (Value Object)` | Representação imutável com propriedades e métricas de ImportInfo. | `models.py` |
-| **ParameterInfo** | `Objeto de Valor (Value Object)` | Representação imutável com propriedades e métricas de ParameterInfo. | `models.py` |
-| **ProjectData** | `Objeto de Valor (Value Object)` | Representação imutável com propriedades e métricas de ProjectData. | `models.py` |
-| **ProjectMetrics** | `Objeto de Valor (Value Object)` | Representação imutável com propriedades e métricas de ProjectMetrics. | `models.py` |
-| **SymbolInfo** | `Objeto de Valor (Value Object)` | Representação imutável com propriedades e métricas de SymbolInfo. | `models.py` |
-| **DocSuiteGenerator** | `Serviço de Domínio` | Orquestra a escrita dos documentos Markdown. | `doc_suite.py` |
-| **DocViewerHandler** | `Serviço de Domínio` | Handler HTTP para servir a UI interativa e os arquivos Markdown. | `server.py` |
-| **ParserRegistry** | `Serviço de Domínio` | Gerencia a lista de parsers disponíveis e aplica o mais adequado a cada arquivo. | `__init__.py` |
-| **RepositoryScanner** | `Serviço de Domínio` | Escaneia o repositório e constrói a lista inicial de arquivos e métricas. | `scanner.py` |
-| **TestAIEngine** | `Serviço de Domínio` | Serviço responsável por executar operações e orquestrações de TestAIEngine. | `test_ai.py` |
-| **TestGenerators** | `Serviço de Domínio` | Serviço responsável por executar operações e orquestrações de TestGenerators. | `test_generators.py` |
-| **TestScanner** | `Serviço de Domínio` | Serviço responsável por executar operações e orquestrações de TestScanner. | `test_scanner.py` |
+### 3. OpenAI ou Anthropic Claude
+```bash
+export OPENAI_API_KEY="sk-..."
+docgen generate . --ai --provider openai
 
----
-
-### Entidade (37)
-- **C4_PROMPT**: Elemento estrutural do domínio do sistema.
-  - *Arquivos*: `docgen/ai/prompts.py`
-- **DAS_PROMPT**: Elemento estrutural do domínio do sistema.
-  - *Arquivos*: `docgen/ai/prompts.py`
-- **HLD_PROMPT**: Elemento estrutural do domínio do sistema.
-  - *Arquivos*: `docgen/ai/prompts.py`
-- **HTML_TEMPLATE**: Elemento estrutural do domínio do sistema.
-  - *Arquivos*: `docgen/server.py`
-- **IGNORED_BASE_CLASSES**: Elemento estrutural do domínio do sistema.
-  - *Arquivos*: `docgen/generators/mermaid.py`
-- **SYSTEM_ARCHITECT_PROMPT**: Elemento estrutural do domínio do sistema.
-  - *Arquivos*: `docgen/ai/prompts.py`
-- **UBIQUITOUS_LANGUAGE_PROMPT**: Elemento estrutural do domínio do sistema.
-  - *Arquivos*: `docgen/ai/prompts.py`
-- **build_static_html_viewer**: Gera um index.html autossuficiente contendo todos os Markdowns embutidos.
-  - *Arquivos*: `docgen/generators/static_site_generator.py`
-- **count_file_lines**: Analisa as linhas de um arquivo e retorna:.
-  - *Arquivos*: `docgen/scanner.py`
-- **detect_language**: Identifica a linguagem pelo nome ou extensão do arquivo.
-  - *Arquivos*: `docgen/scanner.py`
-- **extract_ubiquitous_terms**: Analisa as definições de classes, tipos e enums para compor a Linguagem Ubíqua.
-  - *Arquivos*: `docgen/generators/ubiquitous_language_generator.py`
-- **generate_api_reference_markdown**: Gera o documento API_REFERENCE.md.
-  - *Arquivos*: `docgen/generators/api_reference_generator.py`
-- **generate_architecture_diagram**: Gera um diagrama de arquitetura em alto nível agrupando módulos em subgraphs.
-  - *Arquivos*: `docgen/generators/mermaid.py`
-- **generate_c4_documentation**: Gera o documento completo C4_MODEL.md.
-  - *Arquivos*: `docgen/generators/c4_generator.py`
-- **generate_class_diagram**: Gera um diagrama de classes Mermaid válido para entidades e classes de domínio.
-  - *Arquivos*: `docgen/generators/mermaid.py`
-- **generate_das**: Gera o Documento de Arquitetura de Software (DAS.md) no padrão Arc42 / 4+1 Views.
-  - *Arquivos*: `docgen/generators/architecture_generator.py`
-- **generate_dependency_graph**: Gera o grafo de dependências internas entre módulos do projeto.
-  - *Arquivos*: `docgen/generators/mermaid.py`
-- **generate_directory_tree**: Gera uma árvore visual de diretórios em texto/ASCII.
-  - *Arquivos*: `docgen/generators/doc_suite.py`
-- **generate_hld**: Gera o documento High-Level Design (HLD.md).
-  - *Arquivos*: `docgen/generators/architecture_generator.py`
-- **generate_ubiquitous_language_markdown**: Gera o documento UBIQUITOUS_LANGUAGE.md.
-  - *Arquivos*: `docgen/generators/ubiquitous_language_generator.py`
-- **get_ai_provider**: Fábrica inteligente de provedores de IA.
-  - *Arquivos*: `docgen/ai/provider.py`
-- **get_primary_programming_language**: Retorna a linguagem de programação principal, desconsiderando arquivos de doc/config.
-  - *Arquivos*: `docgen/config.py`
-- **is_test_file**: Verifica se o arquivo é um arquivo de teste.
-  - *Arquivos*: `docgen/generators/mermaid.py`
-- **print_banner**: Exibe o cabeçalho estilizado do DocGen.
-  - *Arquivos*: `docgen/ui.py`
-- **print_error**: Imprime erro.
-  - *Arquivos*: `docgen/ui.py`
-- **print_info**: Imprime mensagem informativa.
-  - *Arquivos*: `docgen/ui.py`
-- **print_step**: Imprime uma etapa do processo.
-  - *Arquivos*: `docgen/ui.py`
-- **print_success**: Imprime confirmação de sucesso.
-  - *Arquivos*: `docgen/ui.py`
-- **print_table**: Renderiza uma tabela formatada com bordas Unicode no terminal.
-  - *Arquivos*: `docgen/ui.py`
-- **print_warning**: Imprime aviso.
-  - *Arquivos*: `docgen/ui.py`
-- **resolve_internal_dependencies**: Mapeia os imports internos entre arquivos do projeto.
-  - *Arquivos*: `docgen/cli.py`
-- **run_generate**: Executa a análise do repositório e a geração completa da documentação.
-  - *Arquivos*: `docgen/cli.py`
-- **run_init**: Inicializa arquivos de configuração padrão.
-  - *Arquivos*: `docgen/cli.py`
-- **run_stats**: Apenas analisa e exibe métricas no terminal.
-  - *Arquivos*: `docgen/cli.py`
-- **sanitize_id**: Sanitiza strings para identificadores válidos em nós Mermaid.
-  - *Arquivos*: `docgen/generators/mermaid.py`
-- **sanitize_method_for_mermaid**: Sanitiza o nome e retorno do método para sintaxe estrita do Mermaid classDiagram.
-  - *Arquivos*: `docgen/generators/mermaid.py`
-- **start_doc_server**: Inicia o servidor de visualização local.
-  - *Arquivos*: `docgen/server.py`
-
-### Entidade de Domínio (23)
-- **AIArchitect**: Agente de arquitetura de software alimentado por IA Generativa.
-  - *Arquivos*: `docgen/ai/architect.py`
-- **AnthropicProvider**: Integração com Anthropic Claude via REST nativo.
-  - *Arquivos*: `docgen/ai/provider.py`
-- **BaseParser**: Contrato base para analisadores de código fonte.
-  - *Arquivos*: `docgen/parsers/base.py`
-- **CodebaseContextBuilder**: Monta o contexto técnico completo do repositório para ingestão por LLMs.
-  - *Arquivos*: `docgen/ai/context_builder.py`
-- **Colors**: Entidade central com ciclo de vida e estado gerenciado em Colors.
-  - *Arquivos*: `docgen/ui.py`
-- **GeminiProvider**: Integração com Google Gemini API via REST nativo.
-  - *Arquivos*: `docgen/ai/provider.py`
-- **GenericParser**: Parser de fallback para qualquer arquivo de código ou configuração.
-  - *Arquivos*: `docgen/parsers/generic_parser.py`
-- **GoParser**: Parser estrutural para código Go.
-  - *Arquivos*: `docgen/parsers/go_parser.py`
-- **IgnoreMatcher**: Implementa correspondência de padrões estilo .gitignore.
-  - *Arquivos*: `docgen/scanner.py`
-- **JavaParser**: Parser para linguagens orientadas a objetos baseadas em classes (Java, C#, Kotlin).
-  - *Arquivos*: `docgen/parsers/java_parser.py`
-- **JsTsParser**: Parser estrutural e regex para JavaScript e TypeScript.
-  - *Arquivos*: `docgen/parsers/js_ts_parser.py`
-- **LLMProvider**: Interface abstrata para provedores de inteligência artificial generativa.
-  - *Arquivos*: `docgen/ai/provider.py`
-- **MockProvider**: Provedor mock utilizado para testes unitários ou modo determinístico.
-  - *Arquivos*: `docgen/ai/provider.py`
-- **ModuleGroup**: Entidade central com ciclo de vida e estado gerenciado em ModuleGroup.
-  - *Arquivos*: `docgen/models.py`
-- **OllamaProvider**: Integração com LLM local via Ollama (DeepSeek-R1, Llama 3, Qwen, etc.).
-  - *Arquivos*: `docgen/ai/provider.py`
-- **OpenAIProvider**: Integração com OpenAI (GPT-4o, GPT-4o-mini) via REST nativo.
-  - *Arquivos*: `docgen/ai/provider.py`
-- **PythonParser**: Parser para arquivos Python usando AST.
-  - *Arquivos*: `docgen/parsers/python_parser.py`
-- **RustParser**: Parser estrutural para código Rust.
-  - *Arquivos*: `docgen/parsers/rust_parser.py`
-- **SymbolType**: Entidade central com ciclo de vida e estado gerenciado em SymbolType.
-  - *Arquivos*: `docgen/models.py`
-- **TestCLI**: Entidade central com ciclo de vida e estado gerenciado em TestCLI.
-  - *Arquivos*: `tests/test_cli.py`
-- **TestJsTsParser**: Entidade central com ciclo de vida e estado gerenciado em TestJsTsParser.
-  - *Arquivos*: `tests/test_js_parser.py`
-- **TestPythonParser**: Entidade central com ciclo de vida e estado gerenciado em TestPythonParser.
-  - *Arquivos*: `tests/test_python_parser.py`
-- **UbiquitousTerm**: Entidade central com ciclo de vida e estado gerenciado em UbiquitousTerm.
-  - *Arquivos*: `docgen/models.py`
-
-### Objeto de Valor (Value Object) (6)
-- **FileInfo**: Representação imutável com propriedades e métricas de FileInfo.
-  - *Arquivos*: `docgen/models.py`
-- **ImportInfo**: Representação imutável com propriedades e métricas de ImportInfo.
-  - *Arquivos*: `docgen/models.py`
-- **ParameterInfo**: Representação imutável com propriedades e métricas de ParameterInfo.
-  - *Arquivos*: `docgen/models.py`
-- **ProjectData**: Representação imutável com propriedades e métricas de ProjectData.
-  - *Arquivos*: `docgen/models.py`
-- **ProjectMetrics**: Representação imutável com propriedades e métricas de ProjectMetrics.
-  - *Arquivos*: `docgen/models.py`
-- **SymbolInfo**: Representação imutável com propriedades e métricas de SymbolInfo.
-  - *Arquivos*: `docgen/models.py`
-
-### Serviço de Domínio (7)
-- **DocSuiteGenerator**: Orquestra a escrita dos documentos Markdown.
-  - *Arquivos*: `docgen/generators/doc_suite.py`
-- **DocViewerHandler**: Handler HTTP para servir a UI interativa e os arquivos Markdown.
-  - *Arquivos*: `docgen/server.py`
-- **ParserRegistry**: Gerencia a lista de parsers disponíveis e aplica o mais adequado a cada arquivo.
-  - *Arquivos*: `docgen/parsers/__init__.py`
-- **RepositoryScanner**: Escaneia o repositório e constrói a lista inicial de arquivos e métricas.
-  - *Arquivos*: `docgen/scanner.py`
-- **TestAIEngine**: Serviço responsável por executar operações e orquestrações de TestAIEngine.
-  - *Arquivos*: `tests/test_ai.py`
-- **TestGenerators**: Serviço responsável por executar operações e orquestrações de TestGenerators.
-  - *Arquivos*: `tests/test_generators.py`
-- **TestScanner**: Serviço responsável por executar operações e orquestrações de TestScanner.
-  - *Arquivos*: `tests/test_scanner.py`
+export ANTHROPIC_API_KEY="sk-ant-..."
+docgen generate . --ai --provider anthropic
+```

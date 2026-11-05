@@ -1,10 +1,9 @@
 """
-Testes unitários para todos os geradores de documentação técnica e arquitetural:
-- C4 Model
-- HLD / LLD / DAS
-- ADRs
-- Linguagem Ubíqua (DDD)
+Testes unitários para os geradores e orquestrador de documentação:
 - DocSuiteGenerator (Multi e Single-file)
+- Referência de API (AST)
+- Diagramas Mermaid (Arquitetura, Dependências e Classes)
+- Síntese com MockProvider de IA
 """
 
 import unittest
@@ -19,10 +18,14 @@ from docgen.models import (
     ParameterInfo,
     ProjectMetrics,
 )
-from docgen.generators.c4_generator import generate_c4_documentation
-from docgen.generators.architecture_generator import generate_hld, generate_das
-from docgen.generators.ubiquitous_language_generator import extract_ubiquitous_terms, generate_ubiquitous_language_markdown
 from docgen.generators.doc_suite import DocSuiteGenerator
+from docgen.generators.api_reference_generator import generate_api_reference_markdown
+from docgen.generators.mermaid import (
+    generate_architecture_diagram,
+    generate_class_diagram,
+    generate_dependency_graph,
+)
+from docgen.ai.provider import MockProvider
 
 
 class TestGenerators(unittest.TestCase):
@@ -100,38 +103,28 @@ class TestGenerators(unittest.TestCase):
     def tearDown(self):
         self.temp_dir.cleanup()
 
-    def test_c4_model_generation(self):
-        c4_md = generate_c4_documentation(self.project_data)
-        self.assertIn("# Modelo C4: OrderSystem", c4_md)
-        self.assertIn("Nível 1: Diagrama de Contexto", c4_md)
-        self.assertIn("Nível 2: Diagrama de Containers", c4_md)
-        self.assertIn("Nível 3: Diagrama de Componentes", c4_md)
-        self.assertIn("Nível 4: Diagrama de Código", c4_md)
-        self.assertIn("```mermaid", c4_md)
+    def test_api_reference_and_mermaid_generators(self):
+        # 1. API Reference via AST
+        api_md = generate_api_reference_markdown(self.project_data)
+        self.assertIn("# Referência de API", api_md)
+        self.assertIn("OrderService", api_md)
+        self.assertIn("create_order", api_md)
 
-    def test_hld_das_generation(self):
-        hld_md = generate_hld(self.project_data)
-        self.assertIn("# High-Level Design (HLD): OrderSystem", hld_md)
-        self.assertIn("Requisitos Não-Funcionais", hld_md)
+        # 2. Diagramas Mermaid determinísticos
+        arch_diagram = generate_architecture_diagram(self.project_data)
+        self.assertIn("flowchart TB", arch_diagram)
 
-        das_md = generate_das(self.project_data)
-        self.assertIn("# Documento de Arquitetura de Software (DAS): OrderSystem", das_md)
-        self.assertIn("Visão Lógica (Logical View)", das_md)
-        self.assertIn("Visão de Implantação", das_md)
+        dep_graph = generate_dependency_graph(self.project_data.internal_dependencies)
+        self.assertIn("graph LR", dep_graph)
+        self.assertIn("order_service", dep_graph)
 
-    def test_ubiquitous_language_generation(self):
-        terms = extract_ubiquitous_terms(self.project_data)
-        term_names = [t.term for t in terms]
-        self.assertIn("OrderService", term_names)
-        self.assertIn("Order", term_names)
+        class_diag = generate_class_diagram(self.project_data.files)
+        self.assertIn("classDiagram", class_diag)
+        self.assertIn("class OrderService", class_diag)
 
-        ubiq_md = generate_ubiquitous_language_markdown(self.project_data)
-        self.assertIn("# Linguagem Ubíqua (Glossário DDD): OrderSystem", ubiq_md)
-        self.assertIn("Mapa Conceitual do Domínio", ubiq_md)
-        self.assertIn("Glossário de Termos do Negócio", ubiq_md)
-
-    def test_doc_suite_generator_multi_file(self):
-        suite = DocSuiteGenerator(self.project_data, output_dir=str(self.output_dir))
+    def test_doc_suite_generator_with_ai(self):
+        mock_ai = MockProvider(model="mock-architect")
+        suite = DocSuiteGenerator(self.project_data, output_dir=str(self.output_dir), ai_provider=mock_ai)
         files = suite.generate_all(single_file=False)
 
         expected_files = [
@@ -151,6 +144,18 @@ class TestGenerators(unittest.TestCase):
             file_path = self.output_dir / ef
             self.assertTrue(file_path.is_file(), f"Arquivo esperado não encontrado: {ef}")
 
+        # Verifica se o C4 gerado com IA contém a resposta sintetizada
+        c4_text = (self.output_dir / "C4_MODEL.md").read_text(encoding="utf-8")
+        self.assertIn("Mock AI Provider", c4_text)
+
+    def test_doc_suite_generator_without_ai(self):
+        suite = DocSuiteGenerator(self.project_data, output_dir=str(self.output_dir))
+        files = suite.generate_all(single_file=False)
+
+        c4_text = (self.output_dir / "C4_MODEL.md").read_text(encoding="utf-8")
+        self.assertIn("Síntese de IA Pendente", c4_text)
+        self.assertIn("export GEMINI_API_KEY", c4_text)
+
     def test_doc_suite_generator_single_file(self):
         single_path = self.output_dir / "DOCUMENTATION.md"
         suite = DocSuiteGenerator(self.project_data, output_dir=str(self.output_dir))
@@ -166,4 +171,3 @@ class TestGenerators(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

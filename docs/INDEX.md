@@ -1,7 +1,7 @@
 # Documentação Técnica: doc-gen
 
 > [!TIP]
-> Documentação gerada pelo **DocGen**. Repositório analisado com **44 arquivos**, **2,274 linhas de código** e **73 termos conceituais**.
+> Documentação gerada pelo **DocGen**. Repositório analisado com **41 arquivos** e **2,283 linhas de código**.
 
 ---
 
@@ -10,11 +10,11 @@
 | Documento | Escopo e Conteúdo |
 |---|---|
 | 🏛️ **[Modelo C4 (C4_MODEL.md)](./C4_MODEL.md)** | Visão em 4 níveis: Contexto, Containers, Componentes e Código sintetizados via IA. |
-| 📐 **[High-Level Design (HLD.md)](./HLD.md)** | Arquitetura macro, estilo arquitetural, fronteiras e RNFs. |
-| 📋 **[Documento de Arquitetura (DAS.md)](./DAS.md)** | Visão 4+1 e Arc42: lógica, processos, física e riscos. |
-| 💡 **[Linguagem Ubíqua (UBIQUITOUS_LANGUAGE.md)](./UBIQUITOUS_LANGUAGE.md)** | Glossário DDD com entidades, value objects, serviços e mapa conceitual. |
-| 🗺️ **[Arquitetura e Fluxo (ARCHITECTURE.md)](./ARCHITECTURE.md)** | Diagrama Mermaid de componentes e fluxo de dados. |
-| 📖 **[Referência de API (API_REFERENCE.md)](./API_REFERENCE.md)** | Classes, métodos, parâmetros, retornos, docstrings e tipos. |
+| 📐 **[High-Level Design (HLD.md)](./HLD.md)** | Arquitetura macro, estilo arquitetural, fronteiras e RNFs sintetizados via IA. |
+| 📋 **[Documento de Arquitetura (DAS.md)](./DAS.md)** | Visão 4+1 e Arc42: lógica, processos, física e riscos sintetizados via IA. |
+| 💡 **[Linguagem Ubíqua (UBIQUITOUS_LANGUAGE.md)](./UBIQUITOUS_LANGUAGE.md)** | Glossário DDD com entidades, value objects e serviços sintetizados via IA. |
+| 🗺️ **[Arquitetura e Fluxo (ARCHITECTURE.md)](./ARCHITECTURE.md)** | Diagrama Mermaid de componentes e fluxo de dados extraídos via AST. |
+| 📖 **[Referência de API (API_REFERENCE.md)](./API_REFERENCE.md)** | Classes, métodos, parâmetros, retornos, docstrings e tipos via AST. |
 | 📦 **[Dependências (DEPENDENCIES.md)](./DEPENDENCIES.md)** | Pacotes externos e grafo de importações internas. |
 | 📊 **[Métricas do Projeto (METRICS.md)](./METRICS.md)** | SLOC, comentários, taxa de documentação e linguagens. |
 
@@ -60,12 +60,9 @@ tests
     ├── prompts.py
     ├── provider.py
     ├── api_reference_generator.py
-    ├── architecture_generator.py
-    ├── c4_generator.py
     ├── doc_suite.py
     ├── mermaid.py
     ├── static_site_generator.py
-    ├── ubiquitous_language_generator.py
     ├── __init__.py
     ├── base.py
     ├── generic_parser.py

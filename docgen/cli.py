@@ -14,7 +14,6 @@ from docgen.models import ProjectData, FileInfo
 from docgen.scanner import RepositoryScanner
 from docgen.parsers import ParserRegistry
 from docgen.generators.doc_suite import DocSuiteGenerator
-from docgen.generators.ubiquitous_language_generator import extract_ubiquitous_terms
 from docgen.server import start_doc_server
 from docgen.ai.provider import get_ai_provider
 from docgen.ui import (
@@ -101,10 +100,7 @@ def run_generate(args: argparse.Namespace) -> int:
         internal_dependencies=internal_deps,
     )
 
-    # 4. Extração de Linguagem Ubíqua (DDD)
-    project_data.ubiquitous_terms = extract_ubiquitous_terms(project_data)
-
-    # 5. Exibe Resumo em Tabela no Terminal
+    # 4. Exibe Resumo em Tabela no Terminal
     table_rows = []
     for lang, data in list(metrics.language_distribution.items())[:6]:
         table_rows.append([lang, data["files"], f"{data['code_lines']:,}", f"{data.get('percentage', 0)}%"])

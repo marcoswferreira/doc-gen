@@ -17,7 +17,7 @@ flowchart TB
         docgen_server_py["server.py<br/>(Python, 3 símbolos)"]
         docgen_ui_py["ui.py<br/>(Python, 8 símbolos)"]
         docgen___init___py["__init__.py<br/>(Python, 0 símbolos)"]
-        sub_docgen_more["... +20 arquivos"]
+        sub_docgen_more["... +17 arquivos"]
     end
     tests_test_cli_py --> docgen_cli_py
     tests_test_python_parser_py --> docgen_models_py
@@ -30,10 +30,10 @@ flowchart TB
     tests_test_ai_py --> docgen_ai_architect_py
     tests_test_ai_py --> docgen_generators_doc_suite_py
     tests_test_generators_py --> docgen_models_py
-    tests_test_generators_py --> docgen_generators_c4_generator_py
-    tests_test_generators_py --> docgen_generators_architecture_generator_py
-    tests_test_generators_py --> docgen_generators_ubiquitous_language_generator_py
     tests_test_generators_py --> docgen_generators_doc_suite_py
+    tests_test_generators_py --> docgen_generators_api_reference_generator_py
+    tests_test_generators_py --> docgen_generators_mermaid_py
+    tests_test_generators_py --> docgen_ai_provider_py
     tests_test_scanner_py --> docgen_scanner_py
     tests_test_scanner_py --> docgen_models_py
     docgen_scanner_py --> docgen_config_py
@@ -45,11 +45,6 @@ flowchart TB
     docgen_cli_py --> docgen_config_py
     docgen_cli_py --> docgen_server_py
     docgen_server_py --> docgen_ui_py
-    docgen_generators_c4_generator_py --> docgen_models_py
-    docgen_generators_c4_generator_py --> docgen_config_py
-    docgen_generators_c4_generator_py --> docgen_generators_mermaid_py
-    docgen_generators_ubiquitous_language_generator_py --> docgen_models_py
-    docgen_generators_ubiquitous_language_generator_py --> docgen_generators_mermaid_py
     docgen_generators_api_reference_generator_py --> docgen_models_py
     docgen_generators_doc_suite_py --> docgen_models_py
     docgen_generators_doc_suite_py --> docgen_ai_provider_py
@@ -57,8 +52,6 @@ flowchart TB
     docgen_generators_doc_suite_py --> docgen_ui_py
     docgen_generators_doc_suite_py --> docgen_generators_mermaid_py
     docgen_generators_mermaid_py --> docgen_models_py
-    docgen_generators_architecture_generator_py --> docgen_models_py
-    docgen_generators_architecture_generator_py --> docgen_config_py
     docgen_parsers_base_py --> docgen_models_py
     docgen_parsers_js_ts_parser_py --> docgen_models_py
     docgen_parsers_js_ts_parser_py --> docgen_parsers_base_py
@@ -130,11 +123,11 @@ classDiagram
     }
     class DocSuiteGenerator {
         +init()
-        +generate_all() List
-        -build_index() str
-        -build_architecture() str
-        -build_dependencies() str
-        -build_metrics() str
+        -build_ai_pending_placeholder() str
+        -build_c4() str
+        -build_hld() str
+        -build_das() str
+        -build_ubiquitous_language() str
     }
     class BaseParser {
         +can_parse() bool
