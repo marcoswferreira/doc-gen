@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+import sys
+from pathlib import Path
+
+# Adiciona o diretório raiz ao PYTHONPATH
+root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(root))
+
+from docgen.cli import main
+
+if __name__ == "__main__":
+    sys.exit(main())
+
