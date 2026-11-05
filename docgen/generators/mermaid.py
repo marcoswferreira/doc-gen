@@ -138,14 +138,14 @@ def generate_class_diagram(files: List[FileInfo]) -> str:
                 lines.append(m_str)
         lines.append("    }")
 
-    # Relações de herança válidas
+    # Relações de herança válidas (apenas entre classes conhecidas no diagrama)
     for f, cls in domain_classes[:25]:
         cls_id = sanitize_id(cls.name)
         if cls_id not in known_classes:
             continue
         for base in cls.base_classes:
             base_id = sanitize_id(base)
-            if not base_id or base_id.lower() in IGNORED_BASE_CLASSES:
+            if not base_id or base_id.lower() in IGNORED_BASE_CLASSES or base_id not in known_classes:
                 continue
             lines.append(f"    {base_id} <|-- {cls_id}")
 

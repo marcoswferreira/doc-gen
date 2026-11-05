@@ -1,7 +1,7 @@
 # Documentação Técnica: doc-gen
 
 > [!TIP]
-> Documentação gerada pelo **DocGen**. Repositório analisado com **42 arquivos**, **2,039 linhas de código** e **73 termos conceituais**.
+> Documentação gerada pelo **DocGen**. Repositório analisado com **44 arquivos**, **2,274 linhas de código** e **73 termos conceituais**.
 
 ---
 
@@ -25,10 +25,12 @@
 .
 .github
 .gitignore
+.nojekyll
 DOCUMENTATION.md
 README.md
 README.pt-BR.md
 docgen
+index.html
 pyproject.toml
 setup.py
 tests

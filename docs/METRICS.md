@@ -1,12 +1,12 @@
 # Métricas de Código e Estatísticas: doc-gen
 
 ## Resumo Geral
-- **Arquivos Totais Analisados:** 42
-- **Linhas Totais:** 7,612
-- **Linhas de Código Efetivo (SLOC):** 2,039
-- **Linhas de Comentários:** 4,337
-- **Linhas em Branco:** 1,236
-- **Taxa de Documentação / Comentários:** 212.7%
+- **Arquivos Totais Analisados:** 44
+- **Linhas Totais:** 7,899
+- **Linhas de Código Efetivo (SLOC):** 2,274
+- **Linhas de Comentários:** 4,358
+- **Linhas em Branco:** 1,267
+- **Taxa de Documentação / Comentários:** 191.6%
 
 ---
 
@@ -14,8 +14,9 @@
 
 | Linguagem | Arquivos | Linhas de Código | Total Linhas | % Código |
 |---|---|---|---|---|
-| **Markdown** | 3 | 1,597 | 2,309 | 78.3% |
-| **Python** | 35 | 305 | 5,132 | 15.0% |
-| **YAML** | 2 | 85 | 107 | 4.2% |
-| **Other** | 1 | 30 | 38 | 1.5% |
-| **TOML** | 1 | 22 | 26 | 1.1% |
+| **Markdown** | 3 | 1,820 | 2,584 | 80.0% |
+| **Python** | 35 | 305 | 5,132 | 13.4% |
+| **YAML** | 2 | 85 | 107 | 3.7% |
+| **Other** | 2 | 30 | 38 | 1.3% |
+| **TOML** | 1 | 22 | 26 | 1.0% |
+| **HTML** | 1 | 12 | 12 | 0.5% |

@@ -9,11 +9,12 @@
 
 | Módulo / Arquivo | Linguagem | Símbolos | SLOC |
 |---|---|---|---|
-| [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1435 |
+| [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1664 |
 | [pyproject.toml](#pyproject-toml) | TOML | 0 | 22 |
 | [setup.py](#setup-py) | Python | 0 | 11 |
-| [README.pt-BR.md](#readme-pt-br-md) | Markdown | 0 | 81 |
-| [README.md](#readme-md) | Markdown | 0 | 81 |
+| [index.html](#index-html) | HTML | 0 | 12 |
+| [README.pt-BR.md](#readme-pt-br-md) | Markdown | 0 | 79 |
+| [README.md](#readme-md) | Markdown | 0 | 77 |
 | [.gitignore](#-gitignore) | Other | 0 | 30 |
 | [.github/workflows/deploy-docs.yml](#-github-workflows-deploy-docs-yml) | YAML | 0 | 39 |
 | [.github/workflows/ci.yml](#-github-workflows-ci-yml) | YAML | 0 | 46 |
@@ -53,7 +54,7 @@
 
 <a id='documentation-md'></a>
 ## Arquivo: `DOCUMENTATION.md`
-**Linguagem:** Markdown | **Linhas de Código:** 1435 | **Comentários:** 235
+**Linguagem:** Markdown | **Linhas de Código:** 1664 | **Comentários:** 256
 
 ### Descrição do Módulo
 > Documentação Técnica: doc-gen
@@ -78,9 +79,17 @@
 
 ---
 
+<a id='index-html'></a>
+## Arquivo: `index.html`
+**Linguagem:** HTML | **Linhas de Código:** 12 | **Comentários:** 0
+
+*Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
+
+---
+
 <a id='readme-pt-br-md'></a>
 ## Arquivo: `README.pt-BR.md`
-**Linguagem:** Markdown | **Linhas de Código:** 81 | **Comentários:** 21
+**Linguagem:** Markdown | **Linhas de Código:** 79 | **Comentários:** 21
 
 ### Descrição do Módulo
 > DocGen (CLI) ⚡🧠
@@ -91,7 +100,7 @@
 
 <a id='readme-md'></a>
 ## Arquivo: `README.md`
-**Linguagem:** Markdown | **Linhas de Código:** 81 | **Comentários:** 21
+**Linguagem:** Markdown | **Linhas de Código:** 77 | **Comentários:** 21
 
 ### Descrição do Módulo
 > DocGen (CLI) ⚡🧠

@@ -1,7 +1,7 @@
 # Documentação Técnica: doc-gen
 
 > [!TIP]
-> Documentação gerada pelo **DocGen**. Repositório analisado com **42 arquivos**, **2,039 linhas de código** e **73 termos conceituais**.
+> Documentação gerada pelo **DocGen**. Repositório analisado com **44 arquivos**, **2,274 linhas de código** e **73 termos conceituais**.
 
 ---
 
@@ -25,10 +25,12 @@
 .
 .github
 .gitignore
+.nojekyll
 DOCUMENTATION.md
 README.md
 README.pt-BR.md
 docgen
+index.html
 pyproject.toml
 setup.py
 tests
@@ -85,6 +87,7 @@ flowchart TB
     subgraph sub_root["Módulo: root"]
         pyproject_toml["pyproject.toml<br/>(TOML, 0 símbolos)"]
         setup_py["setup.py<br/>(Python, 0 símbolos)"]
+        index_html["index.html<br/>(HTML, 0 símbolos)"]
     end
     subgraph sub_docgen["Módulo: docgen"]
         docgen_scanner_py["scanner.py<br/>(Python, 4 símbolos)"]
@@ -495,7 +498,7 @@ classDiagram
 ---
 
 ## 1. Visão Geral da Solução
-O projeto **doc-gen** foi projetado como uma solução modular desenvolvida principalmente em **Python**, totalizando aproximadamente **2,039 linhas de código** distribuídas em **42 arquivos**.
+O projeto **doc-gen** foi projetado como uma solução modular desenvolvida principalmente em **Python**, totalizando aproximadamente **2,274 linhas de código** distribuídas em **44 arquivos**.
 
 ### Objetivos Principais
 - Fornecer processamento confiável, previsível e desacoplado.
@@ -884,11 +887,12 @@ graph TD
 
 | Módulo / Arquivo | Linguagem | Símbolos | SLOC |
 |---|---|---|---|
-| [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1435 |
+| [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1664 |
 | [pyproject.toml](#pyproject-toml) | TOML | 0 | 22 |
 | [setup.py](#setup-py) | Python | 0 | 11 |
-| [README.pt-BR.md](#readme-pt-br-md) | Markdown | 0 | 81 |
-| [README.md](#readme-md) | Markdown | 0 | 81 |
+| [index.html](#index-html) | HTML | 0 | 12 |
+| [README.pt-BR.md](#readme-pt-br-md) | Markdown | 0 | 79 |
+| [README.md](#readme-md) | Markdown | 0 | 77 |
 | [.gitignore](#-gitignore) | Other | 0 | 30 |
 | [.github/workflows/deploy-docs.yml](#-github-workflows-deploy-docs-yml) | YAML | 0 | 39 |
 | [.github/workflows/ci.yml](#-github-workflows-ci-yml) | YAML | 0 | 46 |
@@ -928,7 +932,7 @@ graph TD
 
 <a id='documentation-md'></a>
 ## Arquivo: `DOCUMENTATION.md`
-**Linguagem:** Markdown | **Linhas de Código:** 1435 | **Comentários:** 235
+**Linguagem:** Markdown | **Linhas de Código:** 1664 | **Comentários:** 256
 
 ### Descrição do Módulo
 > Documentação Técnica: doc-gen
@@ -953,9 +957,17 @@ graph TD
 
 ---
 
+<a id='index-html'></a>
+## Arquivo: `index.html`
+**Linguagem:** HTML | **Linhas de Código:** 12 | **Comentários:** 0
+
+*Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
+
+---
+
 <a id='readme-pt-br-md'></a>
 ## Arquivo: `README.pt-BR.md`
-**Linguagem:** Markdown | **Linhas de Código:** 81 | **Comentários:** 21
+**Linguagem:** Markdown | **Linhas de Código:** 79 | **Comentários:** 21
 
 ### Descrição do Módulo
 > DocGen (CLI) ⚡🧠
@@ -966,7 +978,7 @@ graph TD
 
 <a id='readme-md'></a>
 ## Arquivo: `README.md`
-**Linguagem:** Markdown | **Linhas de Código:** 81 | **Comentários:** 21
+**Linguagem:** Markdown | **Linhas de Código:** 77 | **Comentários:** 21
 
 ### Descrição do Módulo
 > DocGen (CLI) ⚡🧠
@@ -2304,12 +2316,12 @@ graph LR
 # Métricas de Código e Estatísticas: doc-gen
 
 ## Resumo Geral
-- **Arquivos Totais Analisados:** 42
-- **Linhas Totais:** 7,612
-- **Linhas de Código Efetivo (SLOC):** 2,039
-- **Linhas de Comentários:** 4,337
-- **Linhas em Branco:** 1,236
-- **Taxa de Documentação / Comentários:** 212.7%
+- **Arquivos Totais Analisados:** 44
+- **Linhas Totais:** 7,899
+- **Linhas de Código Efetivo (SLOC):** 2,274
+- **Linhas de Comentários:** 4,358
+- **Linhas em Branco:** 1,267
+- **Taxa de Documentação / Comentários:** 191.6%
 
 ---
 
@@ -2317,8 +2329,9 @@ graph LR
 
 | Linguagem | Arquivos | Linhas de Código | Total Linhas | % Código |
 |---|---|---|---|---|
-| **Markdown** | 3 | 1,597 | 2,309 | 78.3% |
-| **Python** | 35 | 305 | 5,132 | 15.0% |
-| **YAML** | 2 | 85 | 107 | 4.2% |
-| **Other** | 1 | 30 | 38 | 1.5% |
-| **TOML** | 1 | 22 | 26 | 1.1% |
+| **Markdown** | 3 | 1,820 | 2,584 | 80.0% |
+| **Python** | 35 | 305 | 5,132 | 13.4% |
+| **YAML** | 2 | 85 | 107 | 3.7% |
+| **Other** | 2 | 30 | 38 | 1.3% |
+| **TOML** | 1 | 22 | 26 | 1.0% |
+| **HTML** | 1 | 12 | 12 | 0.5% |

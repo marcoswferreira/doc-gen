@@ -6,6 +6,7 @@ flowchart TB
     subgraph sub_root["Módulo: root"]
         pyproject_toml["pyproject.toml<br/>(TOML, 0 símbolos)"]
         setup_py["setup.py<br/>(Python, 0 símbolos)"]
+        index_html["index.html<br/>(HTML, 0 símbolos)"]
     end
     subgraph sub_docgen["Módulo: docgen"]
         docgen_scanner_py["scanner.py<br/>(Python, 4 símbolos)"]
