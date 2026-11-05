@@ -1,7 +1,7 @@
 # Documentação Técnica: doc-gen
 
 > [!TIP]
-> Documentação gerada automaticamente pelo **DocGen**. Repositório analisado com **31 arquivos**, **357 linhas de código** e **59 termos conceituais**.
+> Documentação gerada automaticamente pelo **DocGen**. Repositório analisado com **37 arquivos**, **2,022 linhas de código** e **61 termos conceituais**.
 
 ---
 
@@ -25,11 +25,16 @@
 ## Estrutura de Diretórios
 ```
 .
+.github
 .gitignore
+DOCUMENTATION.md
+README.md
+README.pt-BR.md
 docgen
 pyproject.toml
 setup.py
 tests
+  ├── workflows
   ├── __init__.py
   ├── __main__.py
   ├── cli.py
@@ -45,12 +50,15 @@ tests
   ├── test_js_parser.py
   ├── test_python_parser.py
   ├── test_scanner.py
+    ├── ci.yml
+    ├── deploy-docs.yml
     ├── adr_generator.py
     ├── api_reference_generator.py
     ├── architecture_generator.py
     ├── c4_generator.py
     ├── doc_suite.py
     ├── mermaid.py
+    ├── static_site_generator.py
     ├── ubiquitous_language_generator.py
     ├── __init__.py
     ├── base.py

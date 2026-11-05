@@ -30,6 +30,7 @@ from docgen.generators.ubiquitous_language_generator import (
 from docgen.generators.api_reference_generator import (
     generate_api_reference_markdown,
 )
+from docgen.generators.static_site_generator import build_static_html_viewer
 
 
 def generate_directory_tree(files: List[str], max_depth: int = 3) -> str:
@@ -81,48 +82,56 @@ class DocSuiteGenerator:
             return [str(single_path)]
 
         self.output_path.mkdir(parents=True, exist_ok=True)
+        doc_contents: Dict[str, str] = {}
 
         # 1. INDEX.md
         index_content = self._build_index()
         p = self.output_path / "INDEX.md"
         p.write_text(index_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["INDEX.md"] = index_content
 
         # 2. ARCHITECTURE.md
         arch_content = self._build_architecture()
         p = self.output_path / "ARCHITECTURE.md"
         p.write_text(arch_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["ARCHITECTURE.md"] = arch_content
 
         # 3. C4_MODEL.md
         c4_content = generate_c4_documentation(self.project, self.lang)
         p = self.output_path / "C4_MODEL.md"
         p.write_text(c4_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["C4_MODEL.md"] = c4_content
 
         # 4. HLD.md
         hld_content = generate_hld(self.project, self.lang)
         p = self.output_path / "HLD.md"
         p.write_text(hld_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["HLD.md"] = hld_content
 
         # 5. LLD.md
         lld_content = generate_lld(self.project, self.lang)
         p = self.output_path / "LLD.md"
         p.write_text(lld_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["LLD.md"] = lld_content
 
         # 6. DAS.md
         das_content = generate_das(self.project, self.lang)
         p = self.output_path / "DAS.md"
         p.write_text(das_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["DAS.md"] = das_content
 
         # 7. UBIQUITOUS_LANGUAGE.md
         ubiq_content = generate_ubiquitous_language_markdown(self.project, self.lang)
         p = self.output_path / "UBIQUITOUS_LANGUAGE.md"
         p.write_text(ubiq_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["UBIQUITOUS_LANGUAGE.md"] = ubiq_content
 
         # 8. ADRs
         adrs_dir = self.output_path / "adrs"
@@ -141,24 +150,38 @@ class DocSuiteGenerator:
         p = self.output_path / "ADRS.md"
         p.write_text(adrs_index, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["ADRS.md"] = adrs_index
 
         # 9. API_REFERENCE.md
         api_content = generate_api_reference_markdown(self.project, self.lang)
         p = self.output_path / "API_REFERENCE.md"
         p.write_text(api_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["API_REFERENCE.md"] = api_content
 
         # 10. DEPENDENCIES.md
         deps_content = self._build_dependencies()
         p = self.output_path / "DEPENDENCIES.md"
         p.write_text(deps_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["DEPENDENCIES.md"] = deps_content
 
         # 11. METRICS.md
         metrics_content = self._build_metrics()
         p = self.output_path / "METRICS.md"
         p.write_text(metrics_content, encoding="utf-8")
         created_files.append(str(p))
+        doc_contents["METRICS.md"] = metrics_content
+
+        # 12. index.html para GitHub Pages e Navegação Estática
+        html_content = build_static_html_viewer(self.project.project_name, doc_contents)
+        html_path = self.output_path / "index.html"
+        html_path.write_text(html_content, encoding="utf-8")
+        created_files.append(str(html_path))
+
+        # 13. .nojekyll para GitHub Pages não filtrar arquivos
+        nojekyll_path = self.output_path / ".nojekyll"
+        nojekyll_path.write_text("", encoding="utf-8")
 
         return created_files
 

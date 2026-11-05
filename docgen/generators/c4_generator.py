@@ -5,13 +5,14 @@ Gera diagramas Mermaid e detalhamento textual baseado na arquitetura de Simon Br
 
 from pathlib import Path
 from docgen.models import ProjectData, SymbolType
+from docgen.config import get_primary_programming_language
 from docgen.generators.mermaid import sanitize_id
 
 
 def generate_c4_documentation(project: ProjectData, lang: str = "pt") -> str:
     """Gera o documento completo C4_MODEL.md."""
     pname = project.project_name
-    primary_lang = list(project.metrics.language_distribution.keys())[0] if project.metrics.language_distribution else "Multi-language"
+    primary_lang = get_primary_programming_language(project.metrics.language_distribution)
 
     # Detecta se é CLI, Web, API ou Biblioteca
     is_cli = any("cli" in f.path.lower() or "bin" in f.path.lower() or "argparse" in str(f.imports) for f in project.files)

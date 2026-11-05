@@ -9,9 +9,14 @@
 
 | Módulo / Arquivo | Linguagem | Símbolos | SLOC |
 |---|---|---|---|
+| [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1435 |
 | [pyproject.toml](#pyproject-toml) | TOML | 0 | 22 |
 | [setup.py](#setup-py) | Python | 0 | 11 |
+| [README.pt-BR.md](#readme-pt-br-md) | Markdown | 0 | 73 |
+| [README.md](#readme-md) | Markdown | 0 | 72 |
 | [.gitignore](#-gitignore) | Other | 0 | 30 |
+| [.github/workflows/deploy-docs.yml](#-github-workflows-deploy-docs-yml) | YAML | 0 | 39 |
+| [.github/workflows/ci.yml](#-github-workflows-ci-yml) | YAML | 0 | 46 |
 | [tests/test_cli.py](#tests-test_cli-py) | Python | 1 | 0 |
 | [tests/test_python_parser.py](#tests-test_python_parser-py) | Python | 1 | 0 |
 | [tests/test_js_parser.py](#tests-test_js_parser-py) | Python | 1 | 12 |
@@ -20,6 +25,7 @@
 | [docgen/scanner.py](#docgen-scanner-py) | Python | 4 | 126 |
 | [docgen/cli.py](#docgen-cli-py) | Python | 5 | 0 |
 | [docgen/models.py](#docgen-models-py) | Python | 10 | 0 |
+| [docgen/config.py](#docgen-config-py) | Python | 1 | 0 |
 | [docgen/server.py](#docgen-server-py) | Python | 3 | 0 |
 | [docgen/ui.py](#docgen-ui-py) | Python | 8 | 0 |
 | [docgen/generators/c4_generator.py](#docgen-generators-c4_generator-py) | Python | 1 | 0 |
@@ -27,6 +33,7 @@
 | [docgen/generators/api_reference_generator.py](#docgen-generators-api_reference_generator-py) | Python | 1 | 0 |
 | [docgen/generators/adr_generator.py](#docgen-generators-adr_generator-py) | Python | 4 | 0 |
 | [docgen/generators/doc_suite.py](#docgen-generators-doc_suite-py) | Python | 2 | 0 |
+| [docgen/generators/static_site_generator.py](#docgen-generators-static_site_generator-py) | Python | 1 | 0 |
 | [docgen/generators/mermaid.py](#docgen-generators-mermaid-py) | Python | 4 | 0 |
 | [docgen/generators/architecture_generator.py](#docgen-generators-architecture_generator-py) | Python | 3 | 0 |
 | [docgen/parsers/base.py](#docgen-parsers-base-py) | Python | 1 | 0 |
@@ -37,6 +44,17 @@
 | [docgen/parsers/generic_parser.py](#docgen-parsers-generic_parser-py) | Python | 1 | 23 |
 | [docgen/parsers/python_parser.py](#docgen-parsers-python_parser-py) | Python | 3 | 0 |
 | [docgen/parsers/__init__.py](#docgen-parsers-__init__-py) | Python | 1 | 0 |
+
+---
+
+<a id='documentation-md'></a>
+## Arquivo: `DOCUMENTATION.md`
+**Linguagem:** Markdown | **Linhas de Código:** 1435 | **Comentários:** 235
+
+### Descrição do Módulo
+> Documentação Técnica: doc-gen
+
+*Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
 
 ---
 
@@ -56,12 +74,50 @@
 
 ---
 
+<a id='readme-pt-br-md'></a>
+## Arquivo: `README.pt-BR.md`
+**Linguagem:** Markdown | **Linhas de Código:** 73 | **Comentários:** 16
+
+### Descrição do Módulo
+> DocGen (CLI) ⚡
+
+*Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
+
+---
+
+<a id='readme-md'></a>
+## Arquivo: `README.md`
+**Linguagem:** Markdown | **Linhas de Código:** 72 | **Comentários:** 17
+
+### Descrição do Módulo
+> DocGen (CLI) ⚡
+
+*Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
+
+---
+
 <a id='-gitignore'></a>
 ## Arquivo: `.gitignore`
 **Linguagem:** Other | **Linhas de Código:** 30 | **Comentários:** 4
 
 ### Descrição do Módulo
 > Python
+
+*Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
+
+---
+
+<a id='-github-workflows-deploy-docs-yml'></a>
+## Arquivo: `.github/workflows/deploy-docs.yml`
+**Linguagem:** YAML | **Linhas de Código:** 39 | **Comentários:** 0
+
+*Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
+
+---
+
+<a id='-github-workflows-ci-yml'></a>
+## Arquivo: `.github/workflows/ci.yml`
+**Linguagem:** YAML | **Linhas de Código:** 46 | **Comentários:** 0
 
 *Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
 
@@ -389,6 +445,27 @@ class ProjectData
 
 ---
 
+<a id='docgen-config-py'></a>
+## Arquivo: `docgen/config.py`
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 166
+
+### Descrição do Módulo
+> Configurações, constantes e mapeamentos padrão do DocGen.
+
+### `function` get_primary_programming_language
+```python
+get_primary_programming_language(language_dist: Dict[str, Any]) -> str
+```
+
+Retorna a linguagem de programação principal, desconsiderando arquivos de doc/config.
+
+#### Parâmetros
+| Nome | Tipo | Default |
+|---|---|---|
+| `language_dist` | `Dict[str, Any]` | - |
+
+---
+
 <a id='docgen-server-py'></a>
 ## Arquivo: `docgen/server.py`
 **Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 278
@@ -526,7 +603,7 @@ Renderiza uma tabela formatada com bordas Unicode no terminal.
 
 <a id='docgen-generators-c4_generator-py'></a>
 ## Arquivo: `docgen/generators/c4_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 153
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 154
 
 ### Descrição do Módulo
 > Gerador de documentação no Modelo C4 (Contexto, Containers, Componentes e Código).
@@ -606,7 +683,7 @@ Gera o documento API_REFERENCE.md.
 
 <a id='docgen-generators-adr_generator-py'></a>
 ## Arquivo: `docgen/generators/adr_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 145
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 146
 
 ### Descrição do Módulo
 > Gerador e catalogador de ADRs (Architecture Decision Records).
@@ -660,7 +737,7 @@ Gera o índice consolidado de ADRs em Markdown.
 
 <a id='docgen-generators-doc_suite-py'></a>
 ## Arquivo: `docgen/generators/doc_suite.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 256
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 277
 
 ### Descrição do Módulo
 > Orquestrador central de geração da suíte de documentação Markdown.
@@ -696,6 +773,30 @@ Orquestra a escrita dos documentos Markdown.
 - **`_build_metrics`**`()` -> `str`
 - **`_build_consolidated_documentation`**`()` -> `str`
   - *Gera um único arquivo DOCUMENTATION.md contendo todas as seções.*
+
+---
+
+<a id='docgen-generators-static_site_generator-py'></a>
+## Arquivo: `docgen/generators/static_site_generator.py`
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 282
+
+### Descrição do Módulo
+> Gerador de site estático HTML para publicação direta no GitHub Pages, GitLab Pages ou navegação offline.
+Inclui visualizador completo, tema dark mode, renderizador de Mermaid e dados pré-embutidos.
+
+### `function` build_static_html_viewer
+```python
+build_static_html_viewer(project_name: str, doc_contents: Dict[str, str]) -> str
+```
+
+Gera um index.html autossuficiente contendo todos os Markdowns embutidos.
+Funciona 100% estático em qualquer servidor (como GitHub Pages) ou via file://.
+
+#### Parâmetros
+| Nome | Tipo | Default |
+|---|---|---|
+| `project_name` | `str` | - |
+| `doc_contents` | `Dict[str, str]` | - |
 
 ---
 
@@ -758,7 +859,7 @@ Gera o grafo de dependências internas entre módulos do projeto.
 
 <a id='docgen-generators-architecture_generator-py'></a>
 ## Arquivo: `docgen/generators/architecture_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 207
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 208
 
 ### Descrição do Módulo
 > Gerador de documentação arquitetural avançada:

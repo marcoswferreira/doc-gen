@@ -8,12 +8,13 @@ Gerador de documentação arquitetural avançada:
 from typing import List
 from pathlib import Path
 from docgen.models import ProjectData, SymbolType
+from docgen.config import get_primary_programming_language
 
 
 def generate_hld(project: ProjectData, lang: str = "pt") -> str:
     """Gera o documento High-Level Design (HLD.md)."""
     pname = project.project_name
-    primary_lang = list(project.metrics.language_distribution.keys())[0] if project.metrics.language_distribution else "Multi-language"
+    primary_lang = get_primary_programming_language(project.metrics.language_distribution)
     total_loc = project.metrics.total_code_lines
 
     md = []
@@ -151,7 +152,7 @@ def generate_lld(project: ProjectData, lang: str = "pt") -> str:
 def generate_das(project: ProjectData, lang: str = "pt") -> str:
     """Gera o Documento de Arquitetura de Software (DAS.md) no padrão Arc42 / 4+1 Views."""
     pname = project.project_name
-    primary_lang = list(project.metrics.language_distribution.keys())[0] if project.metrics.language_distribution else "Multi-language"
+    primary_lang = get_primary_programming_language(project.metrics.language_distribution)
 
     md = []
     md.append(f"# Documento de Arquitetura de Software (DAS): {pname}")

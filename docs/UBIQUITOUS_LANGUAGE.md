@@ -11,6 +11,7 @@ Relação visual dos termos mais representativos identificados na base de códig
 ```mermaid
 graph TD
     HTML_TEMPLATE["<b>HTML_TEMPLATE</b><br/><i>(Entidade)</i>"]
+    build_static_html_viewer["<b>build_static_html_viewer</b><br/><i>(Entidade)</i>"]
     count_file_lines["<b>count_file_lines</b><br/><i>(Entidade)</i>"]
     detect_language["<b>detect_language</b><br/><i>(Entidade)</i>"]
     extract_ubiquitous_terms["<b>extract_ubiquitous_terms</b><br/><i>(Entidade)</i>"]
@@ -21,7 +22,6 @@ graph TD
     generate_architecture_diagram["<b>generate_architecture_diagram</b><br/><i>(Entidade)</i>"]
     generate_c4_documentation["<b>generate_c4_documentation</b><br/><i>(Entidade)</i>"]
     generate_class_diagram["<b>generate_class_diagram</b><br/><i>(Entidade)</i>"]
-    generate_das["<b>generate_das</b><br/><i>(Entidade)</i>"]
     count_file_lines -.->|Relacionado| detect_language
     find_existing_adrs -.->|Relacionado| generate_adr_template
     find_existing_adrs -.->|Relacionado| generate_adrs_index_markdown
@@ -34,6 +34,7 @@ graph TD
 | Termo / Conceito | Categoria DDD | Definição / Papel no Sistema | Ocorrências |
 |---|---|---|---|
 | **HTML_TEMPLATE** | `Entidade` | Elemento estrutural do domínio do sistema. | `server.py` |
+| **build_static_html_viewer** | `Entidade` | Gera um index.html autossuficiente contendo todos os Markdowns embutidos. | `static_site_generator.py` |
 | **count_file_lines** | `Entidade` | Analisa as linhas de um arquivo e retorna:. | `scanner.py` |
 | **detect_language** | `Entidade` | Identifica a linguagem pelo nome ou extensão do arquivo. | `scanner.py` |
 | **extract_ubiquitous_terms** | `Entidade` | Analisa as definições de classes, tipos e enums para compor a Linguagem Ubíqua. | `ubiquitous_language_generator.py` |
@@ -50,6 +51,7 @@ graph TD
 | **generate_hld** | `Entidade` | Gera o documento High-Level Design (HLD.md). | `architecture_generator.py` |
 | **generate_lld** | `Entidade` | Gera o documento Low-Level Design (LLD.md). | `architecture_generator.py` |
 | **generate_ubiquitous_language_markdown** | `Entidade` | Gera o documento UBIQUITOUS_LANGUAGE.md. | `ubiquitous_language_generator.py` |
+| **get_primary_programming_language** | `Entidade` | Retorna a linguagem de programação principal, desconsiderando arquivos de doc/config. | `config.py` |
 | **print_banner** | `Entidade` | Exibe o cabeçalho estilizado do DocGen. | `ui.py` |
 | **print_error** | `Entidade` | Imprime erro. | `ui.py` |
 | **print_info** | `Entidade` | Imprime mensagem informativa. | `ui.py` |
@@ -95,9 +97,11 @@ graph TD
 
 ---
 
-### Entidade (31)
+### Entidade (33)
 - **HTML_TEMPLATE**: Elemento estrutural do domínio do sistema.
   - *Arquivos*: `docgen/server.py`
+- **build_static_html_viewer**: Gera um index.html autossuficiente contendo todos os Markdowns embutidos.
+  - *Arquivos*: `docgen/generators/static_site_generator.py`
 - **count_file_lines**: Analisa as linhas de um arquivo e retorna:.
   - *Arquivos*: `docgen/scanner.py`
 - **detect_language**: Identifica a linguagem pelo nome ou extensão do arquivo.
@@ -130,6 +134,8 @@ graph TD
   - *Arquivos*: `docgen/generators/architecture_generator.py`
 - **generate_ubiquitous_language_markdown**: Gera o documento UBIQUITOUS_LANGUAGE.md.
   - *Arquivos*: `docgen/generators/ubiquitous_language_generator.py`
+- **get_primary_programming_language**: Retorna a linguagem de programação principal, desconsiderando arquivos de doc/config.
+  - *Arquivos*: `docgen/config.py`
 - **print_banner**: Exibe o cabeçalho estilizado do DocGen.
   - *Arquivos*: `docgen/ui.py`
 - **print_error**: Imprime erro.

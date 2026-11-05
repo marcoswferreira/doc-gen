@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 from typing import List, Dict
 from docgen.models import ADRItem, ProjectData
+from docgen.config import get_primary_programming_language
 
 
 def find_existing_adrs(root_path: Path) -> List[ADRItem]:
@@ -61,7 +62,7 @@ def synthesize_project_adrs(project: ProjectData) -> List[ADRItem]:
     if existing:
         return existing
 
-    primary_lang = list(project.metrics.language_distribution.keys())[0] if project.metrics.language_distribution else "Multi-language"
+    primary_lang = get_primary_programming_language(project.metrics.language_distribution)
     pname = project.project_name
 
     adrs = [

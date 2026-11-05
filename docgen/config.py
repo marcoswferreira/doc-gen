@@ -2,7 +2,7 @@
 Configurações, constantes e mapeamentos padrão do DocGen.
 """
 
-from typing import Dict, List, Set
+from typing import Dict, List, Set, Any
 
 # Extensões mapeadas para identificação de linguagens
 LANGUAGE_EXTENSIONS: Dict[str, str] = {
@@ -155,4 +155,23 @@ MANIFEST_FILES: Dict[str, str] = {
     "docker-compose.yml": "Docker Compose Multi-Container",
     "docker-compose.yaml": "Docker Compose Multi-Container",
 }
+
+NON_CODE_LANGUAGES: Set[str] = {
+    "Markdown",
+    "reStructuredText",
+    "JSON",
+    "YAML",
+    "TOML",
+    "XML",
+    "Other",
+}
+
+
+def get_primary_programming_language(language_dist: Dict[str, Any]) -> str:
+    """Retorna a linguagem de programação principal, desconsiderando arquivos de doc/config."""
+    for lang in language_dist.keys():
+        if lang not in NON_CODE_LANGUAGES:
+            return lang
+    return list(language_dist.keys())[0] if language_dist else "Multi-language"
+
 

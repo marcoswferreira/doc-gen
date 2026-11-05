@@ -4,9 +4,16 @@
 ```mermaid
 flowchart TB
     subgraph sub_root["Módulo: root"]
+        DOCUMENTATION_md["DOCUMENTATION.md\n(Markdown, 0 símbolos)"]
         pyproject_toml["pyproject.toml\n(TOML, 0 símbolos)"]
         setup_py["setup.py\n(Python, 0 símbolos)"]
+        README_pt_BR_md["README.pt-BR.md\n(Markdown, 0 símbolos)"]
+        README_md["README.md\n(Markdown, 0 símbolos)"]
         gitignore[".gitignore\n(Other, 0 símbolos)"]
+    end
+    subgraph sub_github["Módulo: .github"]
+        github_workflows_deploy_docs_yml["deploy-docs.yml\n(YAML, 0 símbolos)"]
+        github_workflows_ci_yml["ci.yml\n(YAML, 0 símbolos)"]
     end
     subgraph sub_tests["Módulo: tests"]
         tests_test_cli_py["test_cli.py\n(Python, 1 símbolos)"]
@@ -20,11 +27,11 @@ flowchart TB
         docgen___main___py["__main__.py\n(Python, 0 símbolos)"]
         docgen_cli_py["cli.py\n(Python, 5 símbolos)"]
         docgen_models_py["models.py\n(Python, 10 símbolos)"]
-        docgen_config_py["config.py\n(Python, 0 símbolos)"]
+        docgen_config_py["config.py\n(Python, 1 símbolos)"]
         docgen_server_py["server.py\n(Python, 3 símbolos)"]
         docgen_ui_py["ui.py\n(Python, 8 símbolos)"]
         docgen___init___py["__init__.py\n(Python, 0 símbolos)"]
-        sub_docgen_more["... +15 arquivos"]
+        sub_docgen_more["... +16 arquivos"]
     end
     tests_test_cli_py --> docgen_cli_py
     tests_test_python_parser_py --> docgen_models_py
@@ -48,11 +55,13 @@ flowchart TB
     docgen_cli_py --> docgen_server_py
     docgen_server_py --> docgen_ui_py
     docgen_generators_c4_generator_py --> docgen_models_py
+    docgen_generators_c4_generator_py --> docgen_config_py
     docgen_generators_c4_generator_py --> docgen_generators_mermaid_py
     docgen_generators_ubiquitous_language_generator_py --> docgen_models_py
     docgen_generators_ubiquitous_language_generator_py --> docgen_generators_mermaid_py
     docgen_generators_api_reference_generator_py --> docgen_models_py
     docgen_generators_adr_generator_py --> docgen_models_py
+    docgen_generators_adr_generator_py --> docgen_config_py
     docgen_generators_doc_suite_py --> docgen_models_py
     docgen_generators_doc_suite_py --> docgen_generators_mermaid_py
     docgen_generators_doc_suite_py --> docgen_generators_c4_generator_py
@@ -60,6 +69,7 @@ flowchart TB
     docgen_generators_doc_suite_py --> docgen_generators_adr_generator_py
     docgen_generators_mermaid_py --> docgen_models_py
     docgen_generators_architecture_generator_py --> docgen_models_py
+    docgen_generators_architecture_generator_py --> docgen_config_py
     docgen_parsers_base_py --> docgen_models_py
     docgen_parsers_js_ts_parser_py --> docgen_models_py
     docgen_parsers_js_ts_parser_py --> docgen_parsers_base_py
