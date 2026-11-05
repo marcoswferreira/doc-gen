@@ -21,11 +21,15 @@ class CodebaseContextBuilder:
 
         # 1. Metadados do Projeto
         m = self.project.metrics
+        lang_dist = ", ".join(
+            f"{k} ({v.get('percentage', 0)}%)"
+            for k, v in m.language_distribution.items()
+        )
         meta_lines = [
             f"# REPOSITÓRIO: {self.project.project_name}",
             f"- Total de Arquivos: {m.total_files}",
             f"- Linhas de Código (SLOC): {m.total_code_lines:,}",
-            f"- Distribuição de Linguagens: {', '.join(f'{k} ({v.get('percentage', 0)}%)' for k, v in m.language_distribution.items())}",
+            f"- Distribuição de Linguagens: {lang_dist}",
         ]
         if self.project.manifests:
             meta_lines.append(f"- Manifestos Detectados: {', '.join(self.project.manifests.keys())}")
