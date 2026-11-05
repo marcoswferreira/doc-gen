@@ -1,112 +1,113 @@
 # DocGen (CLI) ⚡
 
-> **Gerador Automático de Documentação Técnica e Arquitetura para Repositórios de Código.**
-> Analisa repositórios inteiros e gera documentação completa em Markdown com suporte nativo ao **Modelo C4**, **HLD/LLD**, **DAS**, **ADRs**, **Linguagem Ubíqua (DDD)**, diagramas **Mermaid** e métricas de código.
+[English](README.md) | [Português](README.pt-BR.md)
+
+> **Automated Technical Documentation & Software Architecture Generator for Code Repositories.**
+> Analyzes entire codebases and automatically generates comprehensive Markdown documentation featuring the **C4 Model**, **HLD/LLD**, **SAD (Software Architecture Document)**, **ADRs**, **DDD Ubiquitous Language**, **Mermaid diagrams**, and code metrics.
 
 ---
 
-## 🌟 Destaques
+## 🌟 Key Highlights
 
-- **Zero Dependências Externas Obrigatórias**: Desenvolvido em Python 3.12 usando estritamente a biblioteca padrão (`ast`, `argparse`, `pathlib`, `http.server`, etc.). Funciona em qualquer ambiente Linux, macOS ou Windows sem necessidade de conexões de rede ou compilação.
-- **Suíte Arquitetural Completa**:
-  - 🏛️ **Modelo C4 (Simon Brown)**: Nível 1 (Contexto), Nível 2 (Containers), Nível 3 (Componentes) e Nível 4 (Código).
-  - 📐 **High-Level Design (HLD)**: Estilo arquitetural, escopo, fronteiras e requisitos não-funcionais (RNFs).
-  - ⚙️ **Low-Level Design (LLD)**: Padrões de projeto, estruturas de dados e diagrama de sequência (`sequenceDiagram`).
-  - 📋 **Documento de Arquitetura de Software (DAS)**: Baseado nos modelos **Arc42** e **4+1 Visões de Kruchten**.
-  - ⚖️ **Registro de Decisões de Arquitetura (ADRs)**: Catalogação e síntese de ADRs (formato Michael Nygard) com template padronizado.
-  - 💡 **Linguagem Ubíqua (DDD)**: Glossário de termos de domínio, entidades, value objects, serviços e mapa conceitual.
-- **Suporte Multi-Linguagem**:
-  - **Python**: Extração via AST nativo (módulos, classes, herança, métodos assíncronos, type hints, decoradores, docstrings e rotas FastAPI/Flask).
-  - **TypeScript & JavaScript**: Parser estrutural para ES6+, interfaces, tipos, classes, funções, JSDoc e rotas Express/Next.js.
-  - **Go**: Structs, interfaces, funções, métodos com receivers e comentários godoc.
-  - **Rust**: Módulos, structs, enums, traits, blocos `impl`, `pub fn` e docstrings `///`.
-  - **Java / C#**: Classes, records, interfaces, anotações, métodos tipados e Javadoc.
-  - **Shell / Docker / SQL / Configs**: Parser de fallback para scripts e manifests.
-- **Diagramas Visuais Integrados**: Geração automática de diagramas Mermaid (arquitetura em fluxo, grafo de classes, grafo de dependências e diagramas de sequência).
-- **Métricas do Repositório**: Contagem de SLOC, linhas em branco, linhas de comentários, taxa de documentação e distribuição de linguagens.
-- **Servidor Web Embutido (`docgen serve`)**: Leitor interativo de Markdown com tema escuro, sidebar navegável e renderização dinâmica de Mermaid no navegador.
+- **Zero External Dependencies Required**: Built in Python 3.12 strictly using the standard library (`ast`, `argparse`, `pathlib`, `http.server`, etc.). Runs out of the box on Linux, macOS, and Windows without requiring any internet connection or heavy downloads.
+- **Complete Software Architecture Suite**:
+  - 🏛️ **C4 Model (Simon Brown)**: Level 1 (System Context), Level 2 (Containers), Level 3 (Components), and Level 4 (Code).
+  - 📐 **High-Level Design (HLD)**: Macro architectural style, system boundaries, and Non-Functional Requirements (NFRs).
+  - ⚙️ **Low-Level Design (LLD)**: Detected design patterns, data contracts, and interactive Mermaid sequence diagrams (`sequenceDiagram`).
+  - 📋 **Software Architecture Document (SAD / DAS)**: Based on **Arc42** and the **4+1 View Model** (Logical, Process, Physical, and Technical Risk views).
+  - ⚖️ **Architecture Decision Records (ADRs)**: Automatic cataloging and synthesis of ADRs (Michael Nygard format) plus a standard ADR template.
+  - 💡 **Ubiquitous Language (DDD)**: Domain glossary identifying business entities, value objects, domain services, enums, and a Mermaid concept map.
+- **Multi-Language Support**:
+  - **Python**: Deep extraction via native AST (modules, classes, inheritance, async methods, type annotations, default parameters, decorators, docstrings, and FastAPI/Flask routes).
+  - **TypeScript & JavaScript**: Structural parser for ES6+, interfaces, types, classes, functions, arrow functions, JSDoc comments (`/** ... */`), and Express/Next.js routes.
+  - **Go**: Packages, structs, interfaces, functions, receiver methods, and godoc comments.
+  - **Rust**: Modules, structs, enums, traits, `impl` blocks, `pub fn`, and rustdoc `///` comments.
+  - **Java / C# / Kotlin**: Classes, records, interfaces, annotations, typed methods, and Javadoc.
+  - **Shell / Docker / SQL / Configs**: Fallback parser extracting header documentation and instructions.
+- **Integrated Visual Diagrams**: Automatic generation of Mermaid diagrams (system flowcharts, class diagrams, dependency graphs, and sequence workflows).
+- **Codebase Metrics & Insights**: Accurate computation of Source Lines of Code (SLOC), blank lines, comment lines, documentation ratios, and language distribution.
+- **Built-in Documentation Server (`docgen serve`)**: Embedded zero-dependency HTTP server with a modern dark-mode reader, sidebar navigation, and client-side Mermaid rendering.
 
 ---
 
-## 🚀 Instalação e Execução
+## 🚀 Installation & Quickstart
 
-### Execução Direta (Sem Instalação)
+### Direct Execution (No Installation Required)
 ```bash
 ./bin/docgen [PATH]
-# ou
+# or
 python3 -m docgen [PATH]
 ```
 
-### Instalação no Ambiente
+### Install into Current Environment
 ```bash
 pip install -e .
 ```
 
 ---
 
-## 🛠️ Modos de Uso da CLI
+## 🛠️ CLI Usage & Commands
 
-### 1. Gerar Suíte Completa de Documentação (Padrão: `docs/`)
-Analisa o repositório atual e grava os 11 artefatos técnicos na pasta `docs/`:
+### 1. Generate Complete Documentation Suite (Default: `docs/`)
+Scans the repository and outputs all 11 technical artifacts into the `docs/` folder:
 ```bash
 docgen
-# ou indicando um repositório específico
-docgen /caminho/do/projeto --output ./docs
+# or pointing to a specific repository
+docgen /path/to/project --output ./docs
 ```
 
-### 2. Gerar Documento Único Consolidado (`--single-file`)
-Gera um único arquivo Markdown contendo todas as seções (visão geral, C4, HLD/LLD, DAS, ADRs, DDD, métricas):
+### 2. Generate Single Consolidated Master File (`--single-file`)
+Generates a single, self-contained Markdown file combining all architectural sections and API reference:
 ```bash
 docgen . --single-file --output DOCUMENTATION.md
 ```
 
-### 3. Exibir Métricas no Terminal (`stats`)
-Exibe no próprio terminal tabelas de distribuição de linguagens, SLOC e taxa de comentários sem gravar arquivos:
+### 3. Quick Terminal Statistics (`stats`)
+Prints language distribution tables, SLOC, and documentation ratios directly in the terminal without writing files:
 ```bash
 docgen stats .
 ```
 
-### 4. Visualizar no Navegador (`serve`)
-Inicia um servidor web local com interface moderna para leitura e renderização de diagramas:
+### 4. Interactive Browser Viewer (`serve`)
+Spins up a lightweight local HTTP server with instant search, sidebar navigation, and diagram rendering:
 ```bash
 docgen serve ./docs --port 8080
 ```
 
-### 5. Inicializar Configuração (`init`)
-Cria os arquivos `.docgen.json` e `.docgenignore` no repositório:
+### 5. Initialize Configuration (`init`)
+Generates `.docgen.json` and `.docgenignore` files in your repository:
 ```bash
 docgen init
 ```
 
 ---
 
-## 📂 Documentos Gerados na Suíte
+## 📂 Generated Documentation Artifacts
 
-| Arquivo | Descrição |
+| Document | Description |
 |---|---|
-| `INDEX.md` | Sumário de navegação executivo, badges de tecnologias e árvore de diretórios. |
-| `ARCHITECTURE.md` | Visão geral da arquitetura, diagrama Mermaid de módulos e classes. |
-| `C4_MODEL.md` | Modelo C4 em 4 níveis: Contexto, Containers, Componentes e Código. |
-| `HLD.md` | High-Level Design: estilo arquitetural, fronteiras e requisitos não-funcionais. |
-| `LLD.md` | Low-Level Design: padrões de projeto, contratos e diagrama de sequência. |
-| `DAS.md` | Documento de Arquitetura de Software: Visão Lógica, de Processo e Implantação (Arc42 / 4+1). |
-| `UBIQUITOUS_LANGUAGE.md` | Glossário DDD: termos de negócio, mapa conceitual e definições no código. |
-| `ADRS.md` & `adrs/` | Registro de decisões arquiteturais com índice e template para novas decisões. |
-| `API_REFERENCE.md` | Assinaturas de classes, métodos, parâmetros, retornos, rotas e docstrings. |
-| `DEPENDENCIES.md` | Grafo de dependências internas e lista de pacotes externos identificados. |
-| `METRICS.md` | Estatísticas de linhas de código (SLOC), comentários e distribuição por linguagem. |
+| `INDEX.md` | Executive overview, tech stack badges, directory tree, and quick links. |
+| `ARCHITECTURE.md` | Architecture overview, Mermaid module diagram, and class hierarchy. |
+| `C4_MODEL.md` | C4 Model in 4 levels: System Context, Containers, Components, and Code. |
+| `HLD.md` | High-Level Design: macro architectural style, system boundaries, and NFRs. |
+| `LLD.md` | Low-Level Design: design patterns, contracts, and execution sequence diagrams. |
+| `DAS.md` | Software Architecture Document based on Arc42 and the 4+1 View Model. |
+| `UBIQUITOUS_LANGUAGE.md` | DDD Glossary: business terms, conceptual map, and codebase definitions. |
+| `ADRS.md` & `adrs/` | Cataloged and synthesized Architecture Decision Records + ADR template. |
+| `API_REFERENCE.md` | Complete API signatures, classes, methods, parameters, return types, and docstrings. |
+| `DEPENDENCIES.md` | Internal module dependency graph and detected external package manifests. |
+| `METRICS.md` | Source Lines of Code (SLOC), comments, documentation ratios, and language statistics. |
 
 ---
 
-## 🧪 Testes Automatizados
+## 🧪 Automated Testing
 
-A suíte de testes utiliza o módulo padrão `unittest`:
+DocGen includes an automated test suite utilizing Python's built-in `unittest` runner:
 ```bash
 python3 -m unittest discover -s tests -p "test_*.py" -v
 ```
 
 ---
 
-## 📄 Licença
-Distribuído sob a licença MIT.
-
+## 📄 License
+Distributed under the MIT License.
