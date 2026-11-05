@@ -6,7 +6,7 @@ Gera diagramas Mermaid e detalhamento textual baseado na arquitetura de Simon Br
 from pathlib import Path
 from docgen.models import ProjectData, SymbolType
 from docgen.config import get_primary_programming_language
-from docgen.generators.mermaid import sanitize_id
+from docgen.generators.mermaid import sanitize_id, generate_class_diagram
 
 
 def generate_c4_documentation(project: ProjectData, lang: str = "pt") -> str:
@@ -146,24 +146,9 @@ def generate_c4_documentation(project: ProjectData, lang: str = "pt") -> str:
     md.append("")
 
     # Diagrama de classes
-    classes_code = []
-    for f in project.files:
-        for s in f.symbols:
-            if s.symbol_type == SymbolType.CLASS:
-                classes_code.append((f, s))
-
-    if classes_code:
-        md.append("```mermaid")
-        md.append("classDiagram")
-        for f, cls in classes_code[:15]:
-            cid = sanitize_id(cls.name)
-            md.append(f"    class {cid} {{")
-            for m in cls.children[:4]:
-                md.append(f"        +{m.name}()")
-            md.append("    }")
-            for b in cls.base_classes:
-                md.append(f"    {sanitize_id(b)} <|-- {cid}")
-        md.append("```")
+    class_diagram = generate_class_diagram(project.files)
+    if class_diagram:
+        md.append(class_diagram)
     else:
         md.append("> [!NOTE]")
         md.append("> Repositório predominantemente procedural ou modular sem classes de domínio complexas mapeadas.")
