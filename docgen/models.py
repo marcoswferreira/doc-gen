@@ -130,18 +130,6 @@ class UbiquitousTerm:
 
 
 @dataclass
-class ADRItem:
-    number: int
-    title: str
-    status: str             # "Aceito", "Proposto", "Substituído"
-    context: str
-    decision: str
-    consequences: str
-    date: str
-    source_file: Optional[str] = None
-
-
-@dataclass
 class ProjectData:
     root_path: str
     project_name: str
@@ -154,5 +142,4 @@ class ProjectData:
     detected_frameworks: List[str] = field(default_factory=list)
     detected_arch_patterns: List[str] = field(default_factory=list)
     ubiquitous_terms: List[UbiquitousTerm] = field(default_factory=list)
-    adrs: List[ADRItem] = field(default_factory=list)
 

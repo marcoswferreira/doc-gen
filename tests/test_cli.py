@@ -35,10 +35,9 @@ class TestCLI(unittest.TestCase):
         self.assertTrue((out_dir / "INDEX.md").is_file())
         self.assertTrue((out_dir / "C4_MODEL.md").is_file())
         self.assertTrue((out_dir / "HLD.md").is_file())
-        self.assertTrue((out_dir / "LLD.md").is_file())
         self.assertTrue((out_dir / "DAS.md").is_file())
         self.assertTrue((out_dir / "UBIQUITOUS_LANGUAGE.md").is_file())
-        self.assertTrue((out_dir / "ADRS.md").is_file())
+        self.assertTrue((out_dir / "index.html").is_file())
 
     def test_cli_generate_single_file(self):
         single_doc = self.root / "SINGLE_DOC.md"

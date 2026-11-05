@@ -12,30 +12,30 @@
 | [DOCUMENTATION.md](#documentation-md) | Markdown | 0 | 1435 |
 | [pyproject.toml](#pyproject-toml) | TOML | 0 | 22 |
 | [setup.py](#setup-py) | Python | 0 | 11 |
-| [README.pt-BR.md](#readme-pt-br-md) | Markdown | 0 | 73 |
-| [README.md](#readme-md) | Markdown | 0 | 72 |
+| [README.pt-BR.md](#readme-pt-br-md) | Markdown | 0 | 81 |
+| [README.md](#readme-md) | Markdown | 0 | 81 |
 | [.gitignore](#-gitignore) | Other | 0 | 30 |
 | [.github/workflows/deploy-docs.yml](#-github-workflows-deploy-docs-yml) | YAML | 0 | 39 |
 | [.github/workflows/ci.yml](#-github-workflows-ci-yml) | YAML | 0 | 46 |
 | [tests/test_cli.py](#tests-test_cli-py) | Python | 1 | 0 |
 | [tests/test_python_parser.py](#tests-test_python_parser-py) | Python | 1 | 0 |
 | [tests/test_js_parser.py](#tests-test_js_parser-py) | Python | 1 | 12 |
+| [tests/test_ai.py](#tests-test_ai-py) | Python | 1 | 0 |
 | [tests/test_generators.py](#tests-test_generators-py) | Python | 1 | 0 |
 | [tests/test_scanner.py](#tests-test_scanner-py) | Python | 1 | 0 |
 | [docgen/scanner.py](#docgen-scanner-py) | Python | 4 | 126 |
 | [docgen/cli.py](#docgen-cli-py) | Python | 5 | 0 |
-| [docgen/models.py](#docgen-models-py) | Python | 10 | 0 |
+| [docgen/models.py](#docgen-models-py) | Python | 9 | 0 |
 | [docgen/config.py](#docgen-config-py) | Python | 1 | 0 |
 | [docgen/server.py](#docgen-server-py) | Python | 3 | 0 |
 | [docgen/ui.py](#docgen-ui-py) | Python | 8 | 0 |
 | [docgen/generators/c4_generator.py](#docgen-generators-c4_generator-py) | Python | 1 | 0 |
 | [docgen/generators/ubiquitous_language_generator.py](#docgen-generators-ubiquitous_language_generator-py) | Python | 2 | 0 |
 | [docgen/generators/api_reference_generator.py](#docgen-generators-api_reference_generator-py) | Python | 1 | 0 |
-| [docgen/generators/adr_generator.py](#docgen-generators-adr_generator-py) | Python | 4 | 0 |
 | [docgen/generators/doc_suite.py](#docgen-generators-doc_suite-py) | Python | 2 | 0 |
 | [docgen/generators/static_site_generator.py](#docgen-generators-static_site_generator-py) | Python | 1 | 0 |
-| [docgen/generators/mermaid.py](#docgen-generators-mermaid-py) | Python | 4 | 0 |
-| [docgen/generators/architecture_generator.py](#docgen-generators-architecture_generator-py) | Python | 3 | 0 |
+| [docgen/generators/mermaid.py](#docgen-generators-mermaid-py) | Python | 7 | 0 |
+| [docgen/generators/architecture_generator.py](#docgen-generators-architecture_generator-py) | Python | 2 | 0 |
 | [docgen/parsers/base.py](#docgen-parsers-base-py) | Python | 1 | 0 |
 | [docgen/parsers/js_ts_parser.py](#docgen-parsers-js_ts_parser-py) | Python | 1 | 48 |
 | [docgen/parsers/go_parser.py](#docgen-parsers-go_parser-py) | Python | 1 | 0 |
@@ -44,6 +44,10 @@
 | [docgen/parsers/generic_parser.py](#docgen-parsers-generic_parser-py) | Python | 1 | 23 |
 | [docgen/parsers/python_parser.py](#docgen-parsers-python_parser-py) | Python | 3 | 0 |
 | [docgen/parsers/__init__.py](#docgen-parsers-__init__-py) | Python | 1 | 0 |
+| [docgen/ai/context_builder.py](#docgen-ai-context_builder-py) | Python | 1 | 0 |
+| [docgen/ai/prompts.py](#docgen-ai-prompts-py) | Python | 5 | 0 |
+| [docgen/ai/provider.py](#docgen-ai-provider-py) | Python | 7 | 0 |
+| [docgen/ai/architect.py](#docgen-ai-architect-py) | Python | 2 | 0 |
 
 ---
 
@@ -76,10 +80,10 @@
 
 <a id='readme-pt-br-md'></a>
 ## Arquivo: `README.pt-BR.md`
-**Linguagem:** Markdown | **Linhas de Código:** 73 | **Comentários:** 16
+**Linguagem:** Markdown | **Linhas de Código:** 81 | **Comentários:** 21
 
 ### Descrição do Módulo
-> DocGen (CLI) ⚡
+> DocGen (CLI) ⚡🧠
 
 *Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
 
@@ -87,10 +91,10 @@
 
 <a id='readme-md'></a>
 ## Arquivo: `README.md`
-**Linguagem:** Markdown | **Linhas de Código:** 72 | **Comentários:** 17
+**Linguagem:** Markdown | **Linhas de Código:** 81 | **Comentários:** 21
 
 ### Descrição do Módulo
-> DocGen (CLI) ⚡
+> DocGen (CLI) ⚡🧠
 
 *Nenhum símbolo estruturado (funções ou classes) declarado diretamente neste arquivo.*
 
@@ -125,7 +129,7 @@
 
 <a id='tests-test_cli-py'></a>
 ## Arquivo: `tests/test_cli.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 43
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 42
 
 ### Descrição do Módulo
 > Testes unitários para os comandos da CLI do DocGen.
@@ -184,9 +188,32 @@ class TestJsTsParser(unittest.TestCase)
 
 ---
 
+<a id='tests-test_ai-py'></a>
+## Arquivo: `tests/test_ai.py`
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 89
+
+### Descrição do Módulo
+> Testes unitários para o subsistema de Engenharia de IA do DocGen.
+Valida o construtor de contexto, os provedores de LLM e o AIArchitect.
+
+### `class` TestAIEngine
+```python
+class TestAIEngine(unittest.TestCase)
+```
+
+#### Métodos da Classe
+- **`setUp`**`()`
+- **`tearDown`**`()`
+- **`test_context_builder`**`()`
+- **`test_ai_architect_synthesis`**`()`
+- **`test_doc_suite_with_ai_provider`**`()`
+- **`test_cli_ai_flags`**`()`
+
+---
+
 <a id='tests-test_generators-py'></a>
 ## Arquivo: `tests/test_generators.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 157
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 146
 
 ### Descrição do Módulo
 > Testes unitários para todos os geradores de documentação técnica e arquitetural:
@@ -205,8 +232,7 @@ class TestGenerators(unittest.TestCase)
 - **`setUp`**`()`
 - **`tearDown`**`()`
 - **`test_c4_model_generation`**`()`
-- **`test_hld_lld_das_generation`**`()`
-- **`test_adr_generation`**`()`
+- **`test_hld_das_generation`**`()`
 - **`test_ubiquitous_language_generation`**`()`
 - **`test_doc_suite_generator_multi_file`**`()`
 - **`test_doc_suite_generator_single_file`**`()`
@@ -303,7 +329,7 @@ Escaneia o repositório e constrói a lista inicial de arquivos e métricas.
 
 <a id='docgen-cli-py'></a>
 ## Arquivo: `docgen/cli.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 189
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 218
 
 ### Descrição do Módulo
 > Ponto de entrada da CLI do DocGen.
@@ -371,7 +397,7 @@ main(argv = None)
 
 <a id='docgen-models-py'></a>
 ## Arquivo: `docgen/models.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 133
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 122
 
 ### Descrição do Módulo
 > Modelos de dados (dataclasses) para o DocGen.
@@ -429,12 +455,6 @@ class ProjectMetrics
 ```python
 @dataclass
 class UbiquitousTerm
-```
-
-### `class` ADRItem
-```python
-@dataclass
-class ADRItem
 ```
 
 ### `class` ProjectData
@@ -603,7 +623,7 @@ Renderiza uma tabela formatada com bordas Unicode no terminal.
 
 <a id='docgen-generators-c4_generator-py'></a>
 ## Arquivo: `docgen/generators/c4_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 154
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 140
 
 ### Descrição do Módulo
 > Gerador de documentação no Modelo C4 (Contexto, Containers, Componentes e Código).
@@ -681,63 +701,9 @@ Gera o documento API_REFERENCE.md.
 
 ---
 
-<a id='docgen-generators-adr_generator-py'></a>
-## Arquivo: `docgen/generators/adr_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 146
-
-### Descrição do Módulo
-> Gerador e catalogador de ADRs (Architecture Decision Records).
-Lê ADRs existentes ou sintetiza decisões técnicas chave no formato padrão de Michael Nygard.
-
-### `function` find_existing_adrs
-```python
-find_existing_adrs(root_path: Path) -> List[ADRItem]
-```
-
-Procura por ADRs já existentes em pastas comuns.
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `root_path` | `Path` | - |
-
-### `function` synthesize_project_adrs
-```python
-synthesize_project_adrs(project: ProjectData) -> List[ADRItem]
-```
-
-Gera ADRs sintetizados representativos do repositório se nenhum for encontrado.
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `project` | `ProjectData` | - |
-
-### `function` generate_adr_template
-```python
-generate_adr_template() -> str
-```
-
-Gera o arquivo de template padrão para novas decisões arquiteturais.
-
-### `function` generate_adrs_index_markdown
-```python
-generate_adrs_index_markdown(adrs: List[ADRItem], pname: str) -> str
-```
-
-Gera o índice consolidado de ADRs em Markdown.
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `adrs` | `List[ADRItem]` | - |
-| `pname` | `str` | - |
-
----
-
 <a id='docgen-generators-doc_suite-py'></a>
 ## Arquivo: `docgen/generators/doc_suite.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 277
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 283
 
 ### Descrição do Módulo
 > Orquestrador central de geração da suíte de documentação Markdown.
@@ -764,7 +730,7 @@ class DocSuiteGenerator
 Orquestra a escrita dos documentos Markdown.
 
 #### Métodos da Classe
-- **`__init__`**`(project_data, output_dir, lang)`
+- **`__init__`**`(project_data, output_dir, lang, ai_provider)`
 - **`generate_all`**`(single_file, single_file_name)` -> `List[str]`
   - *Gera todos os arquivos e retorna a lista de caminhos gravados.*
 - **`_build_index`**`()` -> `str`
@@ -778,7 +744,7 @@ Orquestra a escrita dos documentos Markdown.
 
 <a id='docgen-generators-static_site_generator-py'></a>
 ## Arquivo: `docgen/generators/static_site_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 282
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 280
 
 ### Descrição do Módulo
 > Gerador de site estático HTML para publicação direta no GitHub Pages, GitLab Pages ou navegação offline.
@@ -802,7 +768,7 @@ Funciona 100% estático em qualquer servidor (como GitHub Pages) ou via file://.
 
 <a id='docgen-generators-mermaid-py'></a>
 ## Arquivo: `docgen/generators/mermaid.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 87
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 144
 
 ### Descrição do Módulo
 > Gerador de diagramas Mermaid para arquitetura, componentes, dependências e classes.
@@ -831,12 +797,41 @@ Gera um diagrama de arquitetura em alto nível agrupando módulos em subgraphs.
 |---|---|---|
 | `project` | `ProjectData` | - |
 
+### `constant` IGNORED_BASE_CLASSES
+```python
+IGNORED_BASE_CLASSES()
+```
+
+### `function` is_test_file
+```python
+is_test_file(path: str) -> bool
+```
+
+Verifica se o arquivo é um arquivo de teste.
+
+#### Parâmetros
+| Nome | Tipo | Default |
+|---|---|---|
+| `path` | `str` | - |
+
+### `function` sanitize_method_for_mermaid
+```python
+sanitize_method_for_mermaid(method) -> str
+```
+
+Sanitiza o nome e retorno do método para sintaxe estrita do Mermaid classDiagram.
+
+#### Parâmetros
+| Nome | Tipo | Default |
+|---|---|---|
+| `method` | *any* | - |
+
 ### `function` generate_class_diagram
 ```python
 generate_class_diagram(files: List[FileInfo]) -> str
 ```
 
-Gera um diagrama de classes Mermaid para entidades e classes detectadas.
+Gera um diagrama de classes Mermaid válido para entidades e classes de domínio.
 
 #### Parâmetros
 | Nome | Tipo | Default |
@@ -859,7 +854,7 @@ Gera o grafo de dependências internas entre módulos do projeto.
 
 <a id='docgen-generators-architecture_generator-py'></a>
 ## Arquivo: `docgen/generators/architecture_generator.py`
-**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 208
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 144
 
 ### Descrição do Módulo
 > Gerador de documentação arquitetural avançada:
@@ -873,19 +868,6 @@ generate_hld(project: ProjectData, lang: str = 'pt') -> str
 ```
 
 Gera o documento High-Level Design (HLD.md).
-
-#### Parâmetros
-| Nome | Tipo | Default |
-|---|---|---|
-| `project` | `ProjectData` | - |
-| `lang` | `str` | `'pt'` |
-
-### `function` generate_lld
-```python
-generate_lld(project: ProjectData, lang: str = 'pt') -> str
-```
-
-Gera o documento Low-Level Design (LLD.md).
 
 #### Parâmetros
 | Nome | Tipo | Default |
@@ -1113,5 +1095,218 @@ Gerencia a lista de parsers disponíveis e aplica o mais adequado a cada arquivo
   - *Aplica o primeiro parser que aceitar o arquivo.*
 - **`parse_all`**`(files)` -> `List[FileInfo]`
   - *Processa todos os arquivos da lista.*
+
+---
+
+<a id='docgen-ai-context_builder-py'></a>
+## Arquivo: `docgen/ai/context_builder.py`
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 84
+
+### Descrição do Módulo
+> Construtor de contexto semântico do repositório para o modelo de IA.
+Extrai metadados, árvore de módulos, contratos do AST e trechos essenciais de código.
+
+### `class` CodebaseContextBuilder
+```python
+class CodebaseContextBuilder
+```
+
+Monta o contexto técnico completo do repositório para ingestão por LLMs.
+
+#### Métodos da Classe
+- **`__init__`**`(project_data, max_char_budget)`
+- **`build_context`**`()` -> `str`
+  - *Produz uma representação densa e estruturada do repositório.*
+
+---
+
+<a id='docgen-ai-prompts-py'></a>
+## Arquivo: `docgen/ai/prompts.py`
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 94
+
+### Descrição do Módulo
+> Engenharia de prompts para o arquiteto de software de IA.
+Instruções rigorosas para geração de Modelo C4, HLD, LLD, DAS, ADRs e Linguagem Ubíqua.
+
+### `constant` SYSTEM_ARCHITECT_PROMPT
+```python
+SYSTEM_ARCHITECT_PROMPT()
+```
+
+### `constant` C4_PROMPT
+```python
+C4_PROMPT()
+```
+
+### `constant` HLD_PROMPT
+```python
+HLD_PROMPT()
+```
+
+### `constant` DAS_PROMPT
+```python
+DAS_PROMPT()
+```
+
+### `constant` UBIQUITOUS_LANGUAGE_PROMPT
+```python
+UBIQUITOUS_LANGUAGE_PROMPT()
+```
+
+---
+
+<a id='docgen-ai-provider-py'></a>
+## Arquivo: `docgen/ai/provider.py`
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 258
+
+### Descrição do Módulo
+> Provedores de LLM para o DocGen.
+Suporta Google Gemini, OpenAI, Anthropic Claude e Ollama local,
+utilizando exclusivamente a biblioteca padrão (urllib) para zero dependências externas.
+
+### `class` LLMProvider
+```python
+class LLMProvider(ABC)
+```
+
+Interface abstrata para provedores de inteligência artificial generativa.
+
+#### Métodos da Classe
+- **`generate`**`(prompt, system_prompt)` -> `str`
+  - *Gera resposta a partir de um prompt e instrução de sistema.*
+- **`name`**`()` -> `str`
+  - *Nome do provedor.*
+- **`model_name`**`()` -> `str`
+  - *Nome do modelo utilizado.*
+
+### `class` GeminiProvider
+```python
+class GeminiProvider(LLMProvider)
+```
+
+Integração com Google Gemini API via REST nativo.
+
+#### Métodos da Classe
+- **`__init__`**`(api_key, model)`
+- **`name`**`()` -> `str`
+- **`model_name`**`()` -> `str`
+- **`generate`**`(prompt, system_prompt)` -> `str`
+
+### `class` OpenAIProvider
+```python
+class OpenAIProvider(LLMProvider)
+```
+
+Integração com OpenAI (GPT-4o, GPT-4o-mini) via REST nativo.
+
+#### Métodos da Classe
+- **`__init__`**`(api_key, model)`
+- **`name`**`()` -> `str`
+- **`model_name`**`()` -> `str`
+- **`generate`**`(prompt, system_prompt)` -> `str`
+
+### `class` AnthropicProvider
+```python
+class AnthropicProvider(LLMProvider)
+```
+
+Integração com Anthropic Claude via REST nativo.
+
+#### Métodos da Classe
+- **`__init__`**`(api_key, model)`
+- **`name`**`()` -> `str`
+- **`model_name`**`()` -> `str`
+- **`generate`**`(prompt, system_prompt)` -> `str`
+
+### `class` OllamaProvider
+```python
+class OllamaProvider(LLMProvider)
+```
+
+Integração com LLM local via Ollama (DeepSeek-R1, Llama 3, Qwen, etc.).
+
+#### Métodos da Classe
+- **`__init__`**`(base_url, model)`
+- **`name`**`()` -> `str`
+- **`model_name`**`()` -> `str`
+- **`generate`**`(prompt, system_prompt)` -> `str`
+
+### `class` MockProvider
+```python
+class MockProvider(LLMProvider)
+```
+
+Provedor mock utilizado para testes unitários ou modo determinístico.
+
+#### Métodos da Classe
+- **`__init__`**`(model)`
+- **`name`**`()` -> `str`
+- **`model_name`**`()` -> `str`
+- **`generate`**`(prompt, system_prompt)` -> `str`
+
+### `function` get_ai_provider
+```python
+get_ai_provider(provider_name: Optional[str] = None, model: Optional[str] = None, api_key: Optional[str] = None, ollama_url: Optional[str] = None) -> Optional[LLMProvider]
+```
+
+Fábrica inteligente de provedores de IA.
+Detecta automaticamente com base em flags e variáveis de ambiente:
+1. Flag explícita --provider
+2. GEMINI_API_KEY -> Gemini
+3. OPENAI_API_KEY -> OpenAI
+4. ANTHROPIC_API_KEY -> Anthropic
+5. Ollama local (se especificado ou rodando)
+
+#### Parâmetros
+| Nome | Tipo | Default |
+|---|---|---|
+| `provider_name` | `Optional[str]` | `None` |
+| `model` | `Optional[str]` | `None` |
+| `api_key` | `Optional[str]` | `None` |
+| `ollama_url` | `Optional[str]` | `None` |
+
+---
+
+<a id='docgen-ai-architect-py'></a>
+## Arquivo: `docgen/ai/architect.py`
+**Linguagem:** Python | **Linhas de Código:** 0 | **Comentários:** 62
+
+### Descrição do Módulo
+> Orquestrador de IA do DocGen (AI Architect Engine).
+Executa as cadeias de raciocínio arquitetural com o LLM sobre o contexto do repositório.
+
+### `function` _clean_llm_markdown
+```python
+_clean_llm_markdown(text: str) -> str
+```
+
+Remove blocos de markdown envolventes desnecessários retornados por LLMs.
+
+#### Parâmetros
+| Nome | Tipo | Default |
+|---|---|---|
+| `text` | `str` | - |
+
+### `class` AIArchitect
+```python
+class AIArchitect
+```
+
+Agente de arquitetura de software alimentado por IA Generativa.
+
+#### Métodos da Classe
+- **`__init__`**`(project_data, provider, lang)`
+- **`get_context`**`()` -> `str`
+  - *Gera ou recupera o contexto técnico do repositório.*
+- **`_call_llm`**`(prompt_template, task_name)` -> `str`
+  - *Executa a chamada para o provedor de IA com contexto preenchido.*
+- **`synthesize_c4`**`()` -> `str`
+  - *Gera o documento C4_MODEL.md via raciocínio de IA.*
+- **`synthesize_hld`**`()` -> `str`
+  - *Gera o documento HLD.md via raciocínio de IA.*
+- **`synthesize_das`**`()` -> `str`
+  - *Gera o documento DAS.md via raciocínio de IA.*
+- **`synthesize_ubiquitous_language`**`()` -> `str`
+  - *Gera a Linguagem Ubíqua e Bounded Contexts via raciocínio de IA.*
 
 ---

@@ -6,7 +6,7 @@
 ---
 
 ## 1. Visão Geral da Solução
-O projeto **doc-gen** foi projetado como uma solução modular desenvolvida principalmente em **Python**, totalizando aproximadamente **2,022 linhas de código** distribuídas em **37 arquivos**.
+O projeto **doc-gen** foi projetado como uma solução modular desenvolvida principalmente em **Python**, totalizando aproximadamente **2,039 linhas de código** distribuídas em **42 arquivos**.
 
 ### Objetivos Principais
 - Fornecer processamento confiável, previsível e desacoplado.

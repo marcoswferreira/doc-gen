@@ -16,6 +16,7 @@ from docgen.parsers import ParserRegistry
 from docgen.generators.doc_suite import DocSuiteGenerator
 from docgen.generators.ubiquitous_language_generator import extract_ubiquitous_terms
 from docgen.server import start_doc_server
+from docgen.ai.provider import get_ai_provider
 from docgen.ui import (
     Colors,
     print_banner,
@@ -114,9 +115,34 @@ def run_generate(args: argparse.Namespace) -> int:
         title="DISTRIBUIÇÃO DE LINGUAGENS NO REPOSITÓRIO",
     )
 
-    # 6. Geração de Documentos
+    # 6. Configuração e Inicialização do Motor de IA
+    ai_provider = None
+    force_ai = getattr(args, "ai", False) or getattr(args, "provider", None) is not None
+    
+    try:
+        ai_provider = get_ai_provider(
+            provider_name=getattr(args, "provider", None),
+            model=getattr(args, "model", None),
+            api_key=getattr(args, "api_key", None),
+            ollama_url=getattr(args, "ollama_url", None),
+        )
+    except Exception as e:
+        if force_ai:
+            print_error(f"Erro ao inicializar provedor de IA: {e}")
+            return 1
+        else:
+            print_warning(f"Provedor de IA não inicializado: {e}")
+
+    if ai_provider:
+        print_info(f"🧠 {Colors.BOLD}Motor de IA Ativo:{Colors.RESET} {ai_provider.name} ({ai_provider.model_name})")
+    elif force_ai:
+        print_error("Modo de IA solicitado, mas nenhum provedor ou chave foi configurado.")
+        print_info("Defina GEMINI_API_KEY, OPENAI_API_KEY, ANTHROPIC_API_KEY ou execute 'ollama serve' para modelos locais.")
+        return 1
+
+    # 7. Geração de Documentos
     print_step(f"Gerando suíte de documentação em Markdown: {output_dir}...")
-    suite = DocSuiteGenerator(project_data, output_dir=output_dir, lang=args.lang)
+    suite = DocSuiteGenerator(project_data, output_dir=output_dir, lang=args.lang, ai_provider=ai_provider)
     created_files = suite.generate_all(
         single_file=args.single_file,
         single_file_name=output_dir if output_dir.endswith(".md") else "DOCUMENTATION.md"
@@ -202,6 +228,12 @@ def main(argv=None):
     gen_parser.add_argument("--ignore", help="Padrões extras para ignorar separados por vírgula")
     gen_parser.add_argument("--serve", action="store_true", help="Inicia o servidor de visualização local após gerar")
     gen_parser.add_argument("--port", type=int, default=8080, help="Porta do servidor local")
+    # Flags de Inteligência Artificial
+    gen_parser.add_argument("--ai", action="store_true", help="Ativa a síntese arquitetural profunda via Inteligência Artificial (LLM)")
+    gen_parser.add_argument("--provider", choices=["gemini", "openai", "anthropic", "ollama", "mock"], help="Provedor de IA desejado")
+    gen_parser.add_argument("--model", help="Nome do modelo de IA (ex: gemini-2.5-flash, gpt-4o-mini, deepseek-r1)")
+    gen_parser.add_argument("--api-key", help="Chave de API do provedor (ou configurada via variáveis de ambiente)")
+    gen_parser.add_argument("--ollama-url", default="http://localhost:11434", help="URL do servidor Ollama local (default: http://localhost:11434)")
 
     # Comando 'stats'
     stats_parser = subparsers.add_parser("stats", help="Exibe estatísticas de código no terminal")

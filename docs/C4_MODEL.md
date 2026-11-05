@@ -88,61 +88,24 @@ Mapeamento das principais classes, interfaces e tipos estruturais que implementa
 
 ```mermaid
 classDiagram
-    class TestCLI {
-        +setUp()
-        +tearDown()
-        +test_cli_stats()
-        +test_cli_generate_multi()
-    }
-    unittest_TestCase <|-- TestCLI
-    class TestPythonParser {
-        +setUp()
-        +tearDown()
-        +test_parse_classes_and_methods()
-        +test_parse_routes()
-    }
-    unittest_TestCase <|-- TestPythonParser
-    class TestJsTsParser {
-        +setUp()
-        +tearDown()
-        +test_parse_typescript_interfaces_and_classes()
-        +test_parse_express_routes()
-    }
-    unittest_TestCase <|-- TestJsTsParser
-    class TestGenerators {
-        +setUp()
-        +tearDown()
-        +test_c4_model_generation()
-        +test_hld_lld_das_generation()
-    }
-    unittest_TestCase <|-- TestGenerators
-    class TestScanner {
-        +setUp()
-        +tearDown()
-        +test_ignore_matcher()
-        +test_detect_language()
-    }
-    unittest_TestCase <|-- TestScanner
     class IgnoreMatcher {
-        +__init__()
-        +_load_file()
-        +is_ignored()
+        +init()
+        -load_file()
+        +is_ignored() bool
     }
     class RepositoryScanner {
-        +__init__()
-        +scan()
-        +calculate_metrics()
-        +detect_manifests()
+        +init()
+        +scan() List
+        +calculate_metrics() ProjectMetrics
+        +detect_manifests() Tuple
     }
     class SymbolType {
     }
-    str <|-- SymbolType
-    Enum <|-- SymbolType
     class ParameterInfo {
-        +formatted()
+        +formatted() str
     }
     class SymbolInfo {
-        +signature()
+        +signature() str
     }
     class ImportInfo {
     }
@@ -154,4 +117,84 @@ classDiagram
     }
     class UbiquitousTerm {
     }
+    class ProjectData {
+    }
+    class DocViewerHandler {
+        +do_GET()
+    }
+    class Colors {
+    }
+    class DocSuiteGenerator {
+        +init()
+        +generate_all() List
+        -build_index() str
+        -build_architecture() str
+        -build_dependencies() str
+        -build_metrics() str
+    }
+    class BaseParser {
+        +can_parse() bool
+        +parse() FileInfo
+    }
+    class JsTsParser {
+        +can_parse() bool
+        +parse() FileInfo
+        -extract_imports()
+        -extract_jsdocs() dict
+        -parse_ts_params() List
+    }
+    class GoParser {
+        +can_parse() bool
+        +parse() FileInfo
+        -extract_imports()
+        -parse_go_params() list
+    }
+    class RustParser {
+        +can_parse() bool
+        +parse() FileInfo
+        -parse_rust_params() list
+    }
+    class JavaParser {
+        +can_parse() bool
+        +parse() FileInfo
+        -parse_params() list
+    }
+    class GenericParser {
+        +can_parse() bool
+        +parse() FileInfo
+    }
+    class PythonParser {
+        +can_parse() bool
+        +parse() FileInfo
+        -extract_import()
+        -extract_class() SymbolInfo
+        -extract_function() SymbolInfo
+    }
+    class ParserRegistry {
+        +init()
+        +parse_file() FileInfo
+        +parse_all() List
+    }
+    class CodebaseContextBuilder {
+        +init()
+        +build_context() str
+    }
+    class LLMProvider {
+        +generate() str
+        +name() str
+        +model_name() str
+    }
+    class GeminiProvider {
+        +init()
+        +name() str
+        +model_name() str
+        +generate() str
+    }
+    BaseParser <|-- JsTsParser
+    BaseParser <|-- GoParser
+    BaseParser <|-- RustParser
+    BaseParser <|-- JavaParser
+    BaseParser <|-- GenericParser
+    BaseParser <|-- PythonParser
+    LLMProvider <|-- GeminiProvider
 ```

@@ -1,32 +1,28 @@
-# DocGen (CLI) ⚡
+# DocGen (CLI) ⚡🧠
 
 [English](README.md) | [Português](README.pt-BR.md)
 
-> **Gerador Automático de Documentação Técnica e Arquitetura para Repositórios de Código.**
-> Analisa repositórios inteiros e gera documentação completa em Markdown com suporte nativo ao **Modelo C4**, **HLD/LLD**, **DAS**, **ADRs**, **Linguagem Ubíqua (DDD)**, diagramas **Mermaid** e métricas de código.
+> **Gerador de Documentação Técnica e Arquitetura com Inteligência Artificial.**
+> Ingere e compreende profundamente bases de código completas combinando análise sintática via AST multi-linguagem e IA Generativa (Google Gemini, OpenAI, Claude, Ollama/DeepSeek-R1) para sintetizar **Modelo C4**, **HLD**, **DAS (Documento de Arquitetura de Software)** e **Linguagem Ubíqua (DDD)**.
 
 ---
 
-## 🌟 Destaques
+## 🌟 Engenharia de IA & Destaques
 
-- **Zero Dependências Externas Obrigatórias**: Desenvolvido em Python 3.12 usando estritamente a biblioteca padrão (`ast`, `argparse`, `pathlib`, `http.server`, etc.). Funciona em qualquer ambiente Linux, macOS ou Windows sem necessidade de conexões de rede ou compilação.
-- **Suíte Arquitetural Completa**:
-  - 🏛️ **Modelo C4 (Simon Brown)**: Nível 1 (Contexto), Nível 2 (Containers), Nível 3 (Componentes) e Nível 4 (Código).
-  - 📐 **High-Level Design (HLD)**: Estilo arquitetural, escopo, fronteiras e requisitos não-funcionais (RNFs).
-  - ⚙️ **Low-Level Design (LLD)**: Padrões de projeto, estruturas de dados e diagrama de sequência (`sequenceDiagram`).
-  - 📋 **Documento de Arquitetura de Software (DAS)**: Baseado nos modelos **Arc42** e **4+1 Visões de Kruchten**.
-  - ⚖️ **Registro de Decisões de Arquitetura (ADRs)**: Catalogação e síntese de ADRs (formato Michael Nygard) com template padronizado.
-  - 💡 **Linguagem Ubíqua (DDD)**: Glossário de termos de domínio, entidades, value objects, serviços e mapa conceitual.
-- **Suporte Multi-Linguagem**:
-  - **Python**: Extração via AST nativo (módulos, classes, herança, métodos assíncronos, type hints, decoradores, docstrings e rotas FastAPI/Flask).
-  - **TypeScript & JavaScript**: Parser estrutural para ES6+, interfaces, tipos, classes, funções, JSDoc e rotas Express/Next.js.
-  - **Go**: Structs, interfaces, funções, métodos com receivers e comentários godoc.
-  - **Rust**: Módulos, structs, enums, traits, blocos `impl`, `pub fn` e docstrings `///`.
-  - **Java / C#**: Classes, records, interfaces, anotações, métodos tipados e Javadoc.
-  - **Shell / Docker / SQL / Configs**: Parser de fallback para scripts e manifests.
-- **Diagramas Visuais Integrados**: Geração automática de diagramas Mermaid (arquitetura em fluxo, grafo de classes, grafo de dependências e diagramas de sequência).
-- **Métricas do Repositório**: Contagem de SLOC, linhas em branco, linhas de comentários, taxa de documentação e distribuição de linguagens.
-- **Servidor Web Embutido (`docgen serve`)**: Leitor interativo de Markdown com tema escuro, sidebar navegável e renderização dinâmica de Mermaid no navegador.
+- 🧠 **Síntese Arquitetural Profunda com IA (Baseada em LLMs)**:
+  - **Sem Boilerplates Estáticos**: Analisa a semântica real do seu código para deduzir regras de negócio, limites de contexto, trade-offs de arquitetura e padrões de design adotados.
+  - **Motor Multi-Provedor**: Suporta **Google Gemini** (`gemini-2.5-flash`, `gemini-1.5-pro`), **OpenAI** (`gpt-4o`, `gpt-4o-mini`), **Anthropic Claude** (`claude-3-5-sonnet`) e **Ollama Local** (`deepseek-r1`, `llama3.3`, `qwen2.5-coder`).
+  - **Zero Dependências Externas Obrigatórias**: Comunica-se com as APIs REST de IA e modelos locais usando exclusivamente a biblioteca padrão do Python (`urllib.request`), sem exigir nenhum download via pip.
+  - **Arquitetura Resiliente**: Combina o raciocínio cognitivo do LLM com análise estática de AST caso o modo offline seja desejado.
+- 🏛️ **Suíte Completa de Arquitetura de Software**:
+  - **Modelo C4 (Simon Brown)**: Nível 1 (Contexto), Nível 2 (Containers), Nível 3 (Componentes) e Nível 4 (Código).
+  - **High-Level Design (HLD)**: Estilo arquitetural, fluxo macro de dados, fronteiras e Requisitos Não-Funcionais (RNFs).
+  - **Documento de Arquitetura de Software (DAS)**: Baseado nos padrões **Arc42** e **4+1 Visões de Kruchten**.
+  - **Linguagem Ubíqua (DDD)**: Glossário com entidades, value objects, serviços de domínio e mapa conceitual em Mermaid.
+- 🔍 **Análise Sintática Multi-Linguagem via AST**:
+  - **Python** (AST nativo), **TypeScript & JavaScript** (ES6+, interfaces, tipos, JSDoc, rotas), **Go**, **Rust**, **Java / C#** e scripts/configs.
+- 📊 **Visualizador Web Estático & GitHub Pages**:
+  - Gera automaticamente `index.html` autossuficiente com Dark Theme, navegação por sidebar, busca em tempo real e renderização dinâmica de Mermaid.js.
 
 ---
 
@@ -46,38 +42,60 @@ pip install -e .
 
 ---
 
-## 🛠️ Modos de Uso da CLI
+## 🤖 Executando com Motores de Inteligência Artificial
 
-### 1. Gerar Suíte Completa de Documentação (Padrão: `docs/`)
-Analisa o repositório atual e grava os 11 artefatos técnicos na pasta `docs/`:
+O DocGen ativa o Arquiteto de IA automaticamente ao detectar uma chave de API ou servidor Ollama local:
+
+### 1. Google Gemini (Padrão em Nuvem)
 ```bash
-docgen
-# ou indicando um repositório específico
-docgen /caminho/do/projeto --output ./docs
+export GEMINI_API_KEY="sua-chave-api"
+docgen . --ai --provider gemini --model gemini-2.5-flash
 ```
 
-### 2. Gerar Documento Único Consolidado (`--single-file`)
-Gera um único arquivo Markdown contendo todas as seções (visão geral, C4, HLD/LLD, DAS, ADRs, DDD, métricas):
+### 2. OpenAI (GPT-4o / GPT-4o-mini)
+```bash
+export OPENAI_API_KEY="sua-chave-api"
+docgen . --ai --provider openai --model gpt-4o-mini
+```
+
+### 3. Anthropic Claude (Claude 3.5 Sonnet)
+```bash
+export ANTHROPIC_API_KEY="sua-chave-api"
+docgen . --ai --provider anthropic --model claude-3-5-sonnet-20241022
+```
+
+### 4. LLMs Locais e Gratuitos com Ollama (DeepSeek-R1 / Llama 3 / Qwen)
+Execute localmente de forma privada no seu computador sem custo de API:
+```bash
+# Inicie o Ollama
+ollama serve
+
+# Execute o DocGen com DeepSeek-R1
+docgen . --ai --provider ollama --model deepseek-r1
+```
+
+---
+
+## 🛠️ Comandos e Opções da CLI
+
+### Gerar Suíte Completa de Documentação (`docs/`)
+```bash
+docgen [PATH] --output docs/
+```
+
+### Gerar Arquivo Mestre Único Consolidado (`--single-file`)
 ```bash
 docgen . --single-file --output DOCUMENTATION.md
 ```
 
-### 3. Exibir Métricas no Terminal (`stats`)
-Exibe no próprio terminal tabelas de distribuição de linguagens, SLOC e taxa de comentários sem gravar arquivos:
+### Exibir Estatísticas de Código no Terminal (`stats`)
 ```bash
 docgen stats .
 ```
 
-### 4. Visualizar no Navegador (`serve`)
-Inicia um servidor web local com interface moderna para leitura e renderização de diagramas:
+### Servidor Local Interativo (`serve`)
 ```bash
 docgen serve ./docs --port 8080
-```
-
-### 5. Inicializar Configuração (`init`)
-Cria os arquivos `.docgen.json` e `.docgenignore` no repositório:
-```bash
-docgen init
 ```
 
 ---
@@ -86,23 +104,23 @@ docgen init
 
 | Arquivo | Descrição |
 |---|---|
-| `INDEX.md` | Sumário de navegação executivo, badges de tecnologias e árvore de diretórios. |
-| `ARCHITECTURE.md` | Visão geral da arquitetura, diagrama Mermaid de módulos e classes. |
-| `C4_MODEL.md` | Modelo C4 em 4 níveis: Contexto, Containers, Componentes e Código. |
+| `INDEX.md` | Visão executiva, badges de tecnologias, árvore de diretórios e metadados de IA. |
+| `ARCHITECTURE.md` | Visão de arquitetura, diagrama Mermaid de módulos e hierarquia de classes. |
+| `C4_MODEL.md` | Modelo C4: Contexto, Containers, Componentes e Código com diagramas Mermaid. |
 | `HLD.md` | High-Level Design: estilo arquitetural, fronteiras e requisitos não-funcionais. |
-| `LLD.md` | Low-Level Design: padrões de projeto, contratos e diagrama de sequência. |
-| `DAS.md` | Documento de Arquitetura de Software: Visão Lógica, de Processo e Implantação (Arc42 / 4+1). |
-| `UBIQUITOUS_LANGUAGE.md` | Glossário DDD: termos de negócio, mapa conceitual e definições no código. |
-| `ADRS.md` & `adrs/` | Registro de decisões arquiteturais com índice e template para novas decisões. |
+| `LLD.md` | Low-Level Design: padrões de projeto, contratos e diagramas de sequência. |
+| `DAS.md` | Documento de Arquitetura de Software baseado em Arc42 e 4+1 Visões. |
+| `UBIQUITOUS_LANGUAGE.md` | Glossário DDD: entidades de domínio, value objects, serviços e mapa conceitual. |
+| `ADRS.md` & `adrs/` | Decisões arquiteturais sintetizadas do código no formato Michael Nygard. |
 | `API_REFERENCE.md` | Assinaturas de classes, métodos, parâmetros, retornos, rotas e docstrings. |
 | `DEPENDENCIES.md` | Grafo de dependências internas e lista de pacotes externos identificados. |
-| `METRICS.md` | Estatísticas de linhas de código (SLOC), comentários e distribuição por linguagem. |
+| `METRICS.md` | Linhas de código (SLOC), comentários, taxa de documentação e distribuição de linguagens. |
+| `index.html` | SPA estática com Dark Mode e Mermaid pronta para o GitHub Pages. |
 
 ---
 
 ## 🧪 Testes Automatizados
 
-A suíte de testes utiliza o módulo padrão `unittest`:
 ```bash
 python3 -m unittest discover -s tests -p "test_*.py" -v
 ```
@@ -111,4 +129,3 @@ python3 -m unittest discover -s tests -p "test_*.py" -v
 
 ## 📄 Licença
 Distribuído sob a licença MIT.
-

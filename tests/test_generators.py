@@ -20,8 +20,7 @@ from docgen.models import (
     ProjectMetrics,
 )
 from docgen.generators.c4_generator import generate_c4_documentation
-from docgen.generators.architecture_generator import generate_hld, generate_lld, generate_das
-from docgen.generators.adr_generator import synthesize_project_adrs, generate_adrs_index_markdown
+from docgen.generators.architecture_generator import generate_hld, generate_das
 from docgen.generators.ubiquitous_language_generator import extract_ubiquitous_terms, generate_ubiquitous_language_markdown
 from docgen.generators.doc_suite import DocSuiteGenerator
 
@@ -110,27 +109,15 @@ class TestGenerators(unittest.TestCase):
         self.assertIn("Nível 4: Diagrama de Código", c4_md)
         self.assertIn("```mermaid", c4_md)
 
-    def test_hld_lld_das_generation(self):
+    def test_hld_das_generation(self):
         hld_md = generate_hld(self.project_data)
         self.assertIn("# High-Level Design (HLD): OrderSystem", hld_md)
         self.assertIn("Requisitos Não-Funcionais", hld_md)
-
-        lld_md = generate_lld(self.project_data)
-        self.assertIn("# Low-Level Design (LLD): OrderSystem", lld_md)
-        self.assertIn("sequenceDiagram", lld_md)
 
         das_md = generate_das(self.project_data)
         self.assertIn("# Documento de Arquitetura de Software (DAS): OrderSystem", das_md)
         self.assertIn("Visão Lógica (Logical View)", das_md)
         self.assertIn("Visão de Implantação", das_md)
-
-    def test_adr_generation(self):
-        adrs = synthesize_project_adrs(self.project_data)
-        self.assertGreaterEqual(len(adrs), 4)
-
-        index_md = generate_adrs_index_markdown(adrs, "OrderSystem")
-        self.assertIn("# Registro de Decisões Arquiteturais (ADRs): OrderSystem", index_md)
-        self.assertIn("ADR-001", index_md)
 
     def test_ubiquitous_language_generation(self):
         terms = extract_ubiquitous_terms(self.project_data)
@@ -152,13 +139,12 @@ class TestGenerators(unittest.TestCase):
             "ARCHITECTURE.md",
             "C4_MODEL.md",
             "HLD.md",
-            "LLD.md",
             "DAS.md",
             "UBIQUITOUS_LANGUAGE.md",
-            "ADRS.md",
             "API_REFERENCE.md",
             "DEPENDENCIES.md",
             "METRICS.md",
+            "index.html",
         ]
 
         for ef in expected_files:
